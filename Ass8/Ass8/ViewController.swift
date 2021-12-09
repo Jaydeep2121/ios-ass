@@ -9,17 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private let mydata:UILabel = {
-        let label = UILabel()
-        label.textColor = .blue
-        label.font = UIFont.italicSystemFont(ofSize: 20)
-        label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
-        return label
-    }()
+    var a:Int=0,b:Int=0
     private let player1:UILabel = {
         let label = UILabel()
         label.textColor = .blue
-        label.text = "Player 1:"
+        label.text = "X Player :"
         label.font = UIFont.italicSystemFont(ofSize: 20)
         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
         return label
@@ -27,7 +21,7 @@ class ViewController: UIViewController {
     private let player2:UILabel = {
         let label = UILabel()
         label.textColor = .blue
-        label.text = "Player 2:"
+        label.text = "O Player :"
         label.font = UIFont.italicSystemFont(ofSize: 20)
         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
         return label
@@ -51,7 +45,7 @@ class ViewController: UIViewController {
     private let pturn:UILabel = {
         let label = UILabel()
         label.textColor = .blue
-        label.text = ""
+        label.text = "player 1's turn"
         label.font = UIFont.italicSystemFont(ofSize: 20)
         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
         return label
@@ -77,7 +71,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mycollectionview)
-        view.addSubview(mydata)
         view.addSubview(player1)
         view.addSubview(player2)
         view.addSubview(p1)
@@ -88,7 +81,6 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mycollectionview.frame = view.bounds
-        mydata.frame = CGRect(x: 100, y: 500, width: view.frame.width, height: 50)
         player1.frame = CGRect(x:5, y: 40, width: view.frame.width, height: 20)
         player2.frame = CGRect(x:5, y: 70, width: view.frame.width, height: 20)
         p1.frame = CGRect(x: 100, y: 40, width: view.frame.width, height: 20)
@@ -124,34 +116,39 @@ extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
                 state.insert(1, at: indexPath.row)
             }
             
-            zeroflag = !zeroflag
+           
             if zeroflag{
                 pturn.text = "player 1's turn"
             }else{
                 pturn.text = "player 2's turn"
             }
+             zeroflag = !zeroflag
             collectionView.reloadData()
             checkwinner()
         }
     }
     private func checkwinner(){
         if !state.contains(2){
-            pturn.text="draw"
+            let alert = UIAlertController(title: "Alert", message: "Match is Draw", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             resetstate()
         }else{
-            var a:Int=0,b:Int=0
             for i in winningcombination{
                 if state[ i[0] ] == state[ i[1] ] && state[ i[1] ] == state[ i[2] ] && state[ i[2] ] == state[ i[3] ] && state[ i[0] ]  != 2 {
-                    resetstate()
-                    if zeroflag{
+                    var alert = UIAlertController()
+                    if zeroflag {
                             a+=1
                             p1.text="\(a)"
-                            mydata.text="player1 won"
+                            alert = UIAlertController(title: "Alert", message: "Player X win", preferredStyle: UIAlertController.Style.alert)
                     }else{
                             b+=1
                             p2.text="\(b)"
-                            mydata.text="player2 won"
+                            alert = UIAlertController(title: "Alert", message: "Player O win", preferredStyle: UIAlertController.Style.alert)
                     }
+                    resetstate()
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                     pturn.text=""
                     break
                 }
