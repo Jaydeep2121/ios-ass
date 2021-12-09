@@ -91,8 +91,8 @@ class ViewController: UIViewController {
         mydata.frame = CGRect(x: 100, y: 500, width: view.frame.width, height: 50)
         player1.frame = CGRect(x:5, y: 40, width: view.frame.width, height: 20)
         player2.frame = CGRect(x:5, y: 70, width: view.frame.width, height: 20)
-        p1.frame = CGRect(x: 10, y: 40, width: view.frame.width, height: 20)
-        p2.frame = CGRect(x: 10, y: 70, width: view.frame.width, height: 20)
+        p1.frame = CGRect(x: 100, y: 40, width: view.frame.width, height: 20)
+        p2.frame = CGRect(x: 100, y: 70, width: view.frame.width, height: 20)
         pturn.frame = CGRect(x: 100, y: 450, width: view.frame.width, height: 50)
     }
 }
@@ -136,7 +136,8 @@ extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
     }
     private func checkwinner(){
         if !state.contains(2){
-            print("draw")
+            pturn.text="draw"
+            resetstate()
         }else{
             var a:Int=0,b:Int=0
             for i in winningcombination{
@@ -151,6 +152,7 @@ extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
                             p2.text="\(b)"
                             mydata.text="player2 won"
                     }
+                    pturn.text=""
                     break
                 }
             }
