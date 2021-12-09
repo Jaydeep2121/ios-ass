@@ -66,6 +66,7 @@ class Screen1: UIViewController {
         view.addSubview(usernametextfield)
         view.addSubview(passtextfield)
         view.addSubview(loginbutton)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -75,8 +76,9 @@ class Screen1: UIViewController {
         loginbutton.frame = CGRect(x: 60, y: passtextfield.frame.origin.y+70, width: 250, height: 40)
     }
     @objc func loginClickbtn(){
+        print("ff")
         let sc = Screen2()
         navigationController?.pushViewController(sc, animated: true)
-        present(sc, animated: true, completion: nil)
+        //present(sc, animated: true, completion: nil)
     }
 }

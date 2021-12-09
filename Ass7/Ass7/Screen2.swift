@@ -49,7 +49,7 @@ extension Screen2:UITableViewDataSource,UITableViewDelegate{
         self.dismiss(animated: true)
         let sc3 = Screen3()
         navigationController?.pushViewController(sc3, animated: true)
-        present(sc3, animated: true, completion:nil)
+        //present(sc3, animated: true, completion:nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
