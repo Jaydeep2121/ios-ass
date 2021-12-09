@@ -51,7 +51,7 @@ class Screen1: UIViewController {
         button.setTitle("Sign In", for: .normal)
         button.addTarget(self, action: #selector(loginClickbtn), for: .touchUpInside)
         button.tintColor = .white
-        button.backgroundColor = .green
+        button.backgroundColor = UIColor(red: 0.4, green: 1.0, blue: 0.2, alpha: 0.5)
         button.layer.cornerRadius = 20
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -76,9 +76,7 @@ class Screen1: UIViewController {
         loginbutton.frame = CGRect(x: 60, y: passtextfield.frame.origin.y+70, width: 250, height: 40)
     }
     @objc func loginClickbtn(){
-        print("ff")
         let sc = Screen2()
         navigationController?.pushViewController(sc, animated: true)
-        //present(sc, animated: true, completion: nil)
     }
 }

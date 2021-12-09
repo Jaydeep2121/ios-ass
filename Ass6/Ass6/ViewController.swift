@@ -8,11 +8,23 @@
 //label
 //textfield
 //button
+//pagecontrol
+//switch
+//datepicker
+//segment
 //
 import UIKit
 
 class ViewController: UIViewController {
-
+    private var pagecontrol : UIPageControl = {
+       let pc = UIPageControl()
+        pc.numberOfPages = 2
+        pc.currentPage = 0
+        pc.tintColor =  .gray
+        pc.backgroundColor = .black
+        pc.addTarget(self, action: #selector(nextpage), for: .valueChanged)
+        return pc
+    }()
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -35,7 +47,6 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(clickbutton), for: .touchUpInside)
         button.tintColor = .red
         button.backgroundColor = UIColor.black
-        //button.backgroundColor = UIColor(red: 0.4, green: 1.0, blue: 0.2, alpha: 0.5)
         button.layer.cornerRadius = 6
         return button
     }()
@@ -44,19 +55,26 @@ class ViewController: UIViewController {
         view.addSubview(titlelabel)
         view.addSubview(dscr)
         view.addSubview(nextbtn)
+        view.addSubview(pagecontrol)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         titlelabel.frame = CGRect(x: 10, y: 50, width: view.width, height: 100)
         dscr.frame = CGRect(x: 2, y: 150, width: view.width, height: 30)
         nextbtn.frame = CGRect(x: 20, y: 200, width: view.width-35, height: 50)
+        pagecontrol.frame = CGRect(x: 20, y: 500, width: view.width-35, height: 50)
     }
     @objc func clickbutton(){
-        print("hi")
         let sc = nextScreenCollectionViewCell()
         navigationController?.pushViewController(sc, animated: true)
-        present(sc, animated: true, completion: nil)
+    }
+    @objc func nextpage(){
+        clicked()
+    }
+    @objc func clicked(){
+        pagecontrol.currentPage += 1
+        let p2 = nextScreenCollectionViewCell()
+        navigationController?.pushViewController(p2, animated: true)
     }
 }
-
-

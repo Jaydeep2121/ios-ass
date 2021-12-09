@@ -11,7 +11,7 @@ import UIKit
 class Screen2: UIViewController {
     private let mytableview = UITableView()
     private let breakfastdata = ["breakfast","burger","pizza"]
-    private let desc = ["Breakfast is the first meal of a day, most often eaten in the early morning before work","burger will drip if it's big enough and                   served right off the griddle or grill","Pizza could come from the Greek word “pitta” meaning “pie”, or the Langobardic word"]
+    private let desc = ["Breakfast is the first meal of a day, most often eaten in the early morning before work","burger will drip if it's big enough and served right off the griddle or grill","Pizza could come from the Greek word “pitta” meaning “pie”, or the Langobardic word"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,6 @@ extension Screen2:UITableViewDataSource,UITableViewDelegate{
         self.dismiss(animated: true)
         let sc3 = Screen3()
         navigationController?.pushViewController(sc3, animated: true)
-        //present(sc3, animated: true, completion:nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
