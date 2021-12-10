@@ -97,6 +97,7 @@ class nextScreenCollectionViewCell: UIViewController {
         imgview.clipsToBounds = true
         return imgview
     }()
+    
     private let Upbtn : UIButton = {
         let btn = UIButton()
         btn.setTitle("Select Image", for: .normal)
