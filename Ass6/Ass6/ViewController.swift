@@ -5,14 +5,7 @@
 //  Created by DCS on 09/12/21.
 //  Copyright © 2021 DCS. All rights reserved.
 //
-//label
-//textfield
-//button
-//pagecontrol
-//switch
-//datepicker
-//segment
-//
+
 import UIKit
 
 class ViewController: UIViewController {
