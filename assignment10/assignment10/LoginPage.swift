@@ -1,18 +1,20 @@
 //
 //  ViewController.swift
-//  Ass7
+//  assignment10
 //
-//  Created by DCS on 06/12/21.
+//  Created by DCS on 11/12/21.
 //  Copyright © 2021 DCS. All rights reserved.
 //
 
 import UIKit
 
-class Screen1: UIViewController {
+class LoginPage: UIViewController {
+    var user = "Admin"
+    var pass = "admin123"
     private let loginlabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Recipe"
+        label.text = "Login"
         label.textColor = .green
         label.font = UIFont.italicSystemFont(ofSize: 50)
         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 50)
@@ -58,24 +60,35 @@ class Screen1: UIViewController {
         button.layer.shadowOpacity = 0.7
         return button
     }()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        loginlabel.frame = CGRect(x: 80, y: 80, width: 200, height: 100)
+        usernametextfield.frame = CGRect(x: 60, y: 200, width: 250, height: 40)
+        passtextfield.frame = CGRect(x: 60, y: usernametextfield.frame.origin.y+70, width: 250, height: 40)
+        loginbutton.frame = CGRect(x: 60, y: passtextfield.frame.origin.y+70, width: 250, height: 40)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "image1.jpg")!)
+        view.backgroundColor = .white
         view.addSubview(loginlabel)
         view.addSubview(usernametextfield)
         view.addSubview(passtextfield)
         view.addSubview(loginbutton)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        loginlabel.frame = CGRect(x: 90, y: 80, width: 200, height: 100)
-        usernametextfield.frame = CGRect(x: 60, y: 200, width: 250, height: 40)
-        passtextfield.frame = CGRect(x: 60, y: usernametextfield.frame.origin.y+70, width: 250, height: 40)
-        loginbutton.frame = CGRect(x: 60, y: passtextfield.frame.origin.y+70, width: 250, height: 40)
-    }
     @objc func loginClickbtn(){
-        let sc = Screen2()
-        navigationController?.pushViewController(sc, animated: true)
+        if usernametextfield.text == user && passtextfield.text == pass {
+            UserDefaults.standard.setValue(usernametextfield.text, forKey: "uname")
+            self.dismiss(animated: true)
+            let sc = CellScreen()
+            navigationController?.pushViewController(sc, animated: true)
+        }else{
+            usernametextfield.text=""
+            passtextfield.text=""
+            let alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
+

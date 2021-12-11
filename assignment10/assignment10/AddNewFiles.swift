@@ -1,21 +1,21 @@
 //
-//  notesVC.swift
-//  MyFileManager
+//  AddNewFiles.swift
+//  assignment10
 //
-//  Created by DCS on 03/12/21.
+//  Created by DCS on 11/12/21.
 //  Copyright © 2021 DCS. All rights reserved.
 //
 
 import UIKit
 
-class notesVC: UIViewController {
+class AddNewFiles: UIViewController {
+    var f:String? = ""
     private let nametextfield:UITextField = {
         let textfield = UITextField()
         textfield.textColor = .black
-        textfield.placeholder = "Enter Text"
+        textfield.placeholder = "Enter FileName"
         textfield.textAlignment = .center
-        textfield.backgroundColor = .white
-        
+        textfield.backgroundColor = .white        
         textfield.layer.borderWidth = 1
         return textfield
     }()
@@ -48,27 +48,26 @@ class notesVC: UIViewController {
             print(error)
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
         view.addSubview(nametextfield)
         view.addSubview(contenttextview)
         view.addSubview(savebutton)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        do{
-            let filename = FMS.getDocDir().appendingPathComponent("jaydeep.txt")
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        do {
+            let filename = FMS.getDocDir().appendingPathComponent(f! +
+            ".text")
             let fetcgcontent = try String(contentsOf: filename)
-            print(fetcgcontent)
-        }catch{
-            print(error)
+            nametextfield.text = f
+            contenttextview.text = fetcgcontent
+        } catch {
+            print("Error")
         }
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         nametextfield.frame = CGRect(x: 40, y: 100, width: view.frame.width - 80, height: 40)
