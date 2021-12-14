@@ -72,8 +72,8 @@
 				0B114B14276765540042DD1F /* LaunchScreen.storyboard */,
 				0B114B17276765540042DD1F /* Info.plist */,
 				0B114B1F27676A270042DD1F /* newNote.swift */,
-				0B114B2127676A9C0042DD1F /* Notes.swift */,
 				0B114B2327676AE00042DD1F /* Emp.swift */,
+				0B114B2127676A9C0042DD1F /* Notes.swift */,
 				0B114B2527676B7D0042DD1F /* SqliteHandler.swift */,
 			);
 			path = DataBase;
