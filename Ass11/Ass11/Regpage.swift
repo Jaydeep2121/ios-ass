@@ -12,9 +12,9 @@ class Regpage: UIViewController {
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Registration"
-        label.font = UIFont.italicSystemFont(ofSize: 50)
-        label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 50)
+        label.text = "Add Student"
+        label.font = UIFont.italicSystemFont(ofSize: 30)
+        label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
         return label
     }()
     private let spidtextfield:UITextField = {
@@ -108,7 +108,7 @@ class Regpage: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        titlelabel.frame = CGRect(x: 10, y: 20, width: view.width, height: 100)
+        titlelabel.frame = CGRect(x: 10, y: 20, width: view.width-10, height: 100)
         spidtextfield.frame = CGRect(x: 30, y: titlelabel.bottom+20, width: view.width-60, height: 40)
         nametextfield.frame = CGRect(x: 30, y: spidtextfield.bottom + 20, width: view.width-60, height: 40)
         emailtextfield.frame = CGRect(x: 30, y: nametextfield.bottom + 20, width: view.width-60, height: 40)
