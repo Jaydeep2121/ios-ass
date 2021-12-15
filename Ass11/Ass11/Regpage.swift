@@ -9,6 +9,8 @@
 import UIKit
 
 class Regpage: UIViewController {
+    var Student:stud?
+    let temp = SqliteHandler.shared
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
