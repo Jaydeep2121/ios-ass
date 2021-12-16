@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B081F47276B4C8700CA3038 /* liststud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B081F46276B4C8700CA3038 /* liststud.swift */; };
 		0B2FC137276887D3002FCDDA /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2FC136276887D3002FCDDA /* extension.swift */; };
 		0B2FC13927689E9A002FCDDA /* Regpage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2FC13827689E9A002FCDDA /* Regpage.swift */; };
 		0B3C391D276A0BDC0020A4AD /* stud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C391C276A0BDC0020A4AD /* stud.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B081F46276B4C8700CA3038 /* liststud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = liststud.swift; sourceTree = "<group>"; };
 		0B2FC136276887D3002FCDDA /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		0B2FC13827689E9A002FCDDA /* Regpage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regpage.swift; sourceTree = "<group>"; };
 		0B3C391C276A0BDC0020A4AD /* stud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stud.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				0BAEA61027685F000074B1D9 /* LaunchScreen.storyboard */,
 				0BAEA61327685F000074B1D9 /* Info.plist */,
 				0B3C391E276A0FF10020A4AD /* SqliteHandler.swift */,
+				0B081F46276B4C8700CA3038 /* liststud.swift */,
 			);
 			path = Ass11;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				0B2FC137276887D3002FCDDA /* extension.swift in Sources */,
 				0BAEA60A27685EFF0074B1D9 /* LoginVC.swift in Sources */,
 				0B3C391F276A0FF10020A4AD /* SqliteHandler.swift in Sources */,
+				0B081F47276B4C8700CA3038 /* liststud.swift in Sources */,
 				0BAEA60827685EFE0074B1D9 /* AppDelegate.swift in Sources */,
 				0B3C391D276A0BDC0020A4AD /* stud.swift in Sources */,
 				0B2FC13927689E9A002FCDDA /* Regpage.swift in Sources */,

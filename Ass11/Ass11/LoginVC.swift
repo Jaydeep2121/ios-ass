@@ -84,13 +84,17 @@ class LoginVC: UIViewController {
         view.addSubview(loginbutton)
     }
     @objc func loginClickbtn(){
-        var alert = UIAlertController()
-        if usertext.text == uname && passtext.text == upass {
-            print("login")
-        }else{
-            alert = UIAlertController(title: "Confirm", message: "Login Failed....!", preferredStyle: .alert)
-            self.present(alert, animated: true, completion: nil)
-        }
+        let sc = liststud()
+        navigationController?.pushViewController(sc, animated: true)
+        //var alert = UIAlertController()
+//        if usertext.text == uname && passtext.text == upass {
+//            let sc = liststud()
+//            navigationController?.pushViewController(sc, animated: true)
+//        }else{
+//            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

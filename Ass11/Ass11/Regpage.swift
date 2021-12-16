@@ -96,7 +96,11 @@ class Regpage: UIViewController {
         button.layer.cornerRadius = 6
         return button
     }()
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     override func viewDidLoad() {
+        view.backgroundColor = .white
         view.addSubview(titlelabel)
         view.addSubview(spidtextfield)
         view.addSubview(nametextfield)
@@ -105,9 +109,7 @@ class Regpage: UIViewController {
         view.addSubview(mysegment)
         view.addSubview(mysegment1)
         view.addSubview(savebutton)
-        super.viewDidLoad()
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         titlelabel.frame = CGRect(x: 10, y: 20, width: view.width-10, height: 100)
@@ -134,6 +136,7 @@ extension Regpage{
             print("Insert \(id),\(name),\(email),\(String(describing: segm)),\(cour)")
             let insstd = stud(spid: Int(id)!, name: name, email: email, gen: segm, pass: pass, cour: cour)
             insert(Student:insstd)
+            
         }
     }
     private func insert(Student:stud){

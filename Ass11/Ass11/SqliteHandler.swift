@@ -33,7 +33,7 @@ class SqliteHandler {
     private func createtable(){
         let createTableString = """
             CREATE TABLE IF NOT EXISTS student(
-                spid INTEGER PRIMARY KEY,
+                spid INTEGER,
                 name TEXT,
                 email TEXT,
                 gender TEXT,
@@ -51,6 +51,29 @@ class SqliteHandler {
             print("student table not prepared")
         }
         sqlite3_finalize(creatTableStatement)
+    }
+    func delete(for id:Int, completion: @escaping ((Bool) -> Void)) {
+        let deletestr = "delete from student where spid=?;"
+        
+        var deletest:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, deletestr, -1, &deletest, nil) == SQLITE_OK {
+    
+            sqlite3_bind_int(deletest, 1, Int32(id))
+            print("id is:\(id)")
+            if sqlite3_step(deletest) == SQLITE_DONE {
+                print("deleted")
+                completion(true)
+            } else {
+                print("not deleted")
+                completion(false)
+            }
+            
+        } else {
+            print("delete statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(deletest)
     }
     
     func insert(e:stud, completion: @escaping ((Bool) -> Void)) {
@@ -79,5 +102,29 @@ class SqliteHandler {
             completion(false)
         }
         sqlite3_finalize(insertst)
+    }
+    func fetch() -> [stud] {
+        let fetchstr = "SELECT * FROM student;"
+        var emp = [stud]()
+        var fetchst:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
+            
+            while sqlite3_step(fetchst) == SQLITE_ROW {
+                let id = Int(sqlite3_column_int(fetchst, 0))
+                let name =  String(cString: sqlite3_column_text(fetchst, 1))
+                let email = String(cString: sqlite3_column_text(fetchst, 2))
+                let gen = String(cString: sqlite3_column_text(fetchst, 3))
+                let pass = String(cString: sqlite3_column_text(fetchst, 4))
+                let cour = String(cString: sqlite3_column_text(fetchst, 5))
+                emp.append(stud(spid: id, name:name,email: email,gen: gen,pass:pass, cour: cour))
+            }
+            
+        } else {
+            print("fetch statement could not be prepared")
+            
+        }
+        sqlite3_finalize(fetchst)
+        return emp
     }
 }
