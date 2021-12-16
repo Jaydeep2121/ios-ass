@@ -122,6 +122,37 @@ class Regpage: UIViewController {
 }
 extension Regpage{
     @objc func savenote(){
-        print("click")
+        let id = spidtextfield.text!
+        let name = nametextfield.text!
+        let email = emailtextfield.text!
+        let segm = mysegment.titleForSegment(at: mysegment.selectedSegmentIndex)!
+        let pass = passtextfield.text!
+        let cour = mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)!
+        if Student != nil{
+            print("hi")
+        }else{
+            print("Insert \(id),\(name),\(email),\(String(describing: segm)),\(cour)")
+            let insstd = stud(spid: Int(id)!, name: name, email: email, gen: segm, pass: pass, cour: cour)
+            insert(Student:insstd)
+        }
+    }
+    private func insert(Student:stud){
+        SqliteHandler.shared.insert(e: Student) { (success) in
+            if success {
+                print("Insert successfull, recevied mesage at VC")
+                self.resetfields()
+            } else {
+                print("Insert failed, recevied mesage at VC")
+            }
+        }
+    }
+    private func resetfields()
+    {
+        spidtextfield.text=""
+        nametextfield.text=""
+        emailtextfield.text=""
+        mysegment.selectedSegmentIndex = UISegmentedControl.noSegment
+        passtextfield.text=""
+        mysegment1.selectedSegmentIndex = UISegmentedControl.noSegment
     }
 }

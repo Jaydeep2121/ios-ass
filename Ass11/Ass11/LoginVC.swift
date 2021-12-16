@@ -9,6 +9,8 @@
 import UIKit
 
 class LoginVC: UIViewController {
+    let uname = "Admin"
+    let upass = "admin123"
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -82,7 +84,13 @@ class LoginVC: UIViewController {
         view.addSubview(loginbutton)
     }
     @objc func loginClickbtn(){
-        print("clicked...")
+        var alert = UIAlertController()
+        if usertext.text == uname && passtext.text == upass {
+            print("login")
+        }else{
+            alert = UIAlertController(title: "Confirm", message: "Login Failed....!", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

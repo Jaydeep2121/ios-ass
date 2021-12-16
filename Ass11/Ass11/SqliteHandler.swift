@@ -52,4 +52,32 @@ class SqliteHandler {
         }
         sqlite3_finalize(creatTableStatement)
     }
+    
+    func insert(e:stud, completion: @escaping ((Bool) -> Void)) {
+        let insertstr = "INSERT INTO student (spid,name,email,gender,password,course) VALUES (?, ?, ? , ?, ?, ?);"
+        
+        var insertst:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, insertstr, -1, &insertst, nil) == SQLITE_OK {
+            //int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+            sqlite3_bind_int(insertst,  1, Int32(e.spid))
+            sqlite3_bind_text(insertst, 2, (e.name as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 3, (e.email as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 4, (e.gen as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 5, (e.pass as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 6, (e.cour as NSString).utf8String, -1, nil)
+            if sqlite3_step(insertst) == SQLITE_DONE {
+                print("inserted")
+                completion(true)
+            } else {
+                print("not inserted")
+                completion(false)
+            }
+            
+        } else {
+            print("Insert statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(insertst)
+    }
 }
