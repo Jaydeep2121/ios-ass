@@ -69,7 +69,6 @@ extension liststud: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = Regpage()
-        
         vc.Student = notes[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }

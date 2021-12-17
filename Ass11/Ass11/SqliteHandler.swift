@@ -11,7 +11,7 @@ import SQLite3
 
 class SqliteHandler {
     static let shared = SqliteHandler()
-    let dbpath = "empdb.sqllite"
+    let dbpath = "studdb.sqllite"
     var db:OpaquePointer?
     private init(){
         db = opendatabase()
@@ -33,7 +33,7 @@ class SqliteHandler {
     private func createtable(){
         let createTableString = """
             CREATE TABLE IF NOT EXISTS student(
-                spid INTEGER,
+                spid INTEGER PRIMARY KEY,
                 name TEXT,
                 email TEXT,
                 gender TEXT,
@@ -102,6 +102,33 @@ class SqliteHandler {
             completion(false)
         }
         sqlite3_finalize(insertst)
+    }
+    func update(e:stud, completion: @escaping ((Bool) -> Void)) {
+        let updatestr = "UPDATE student SET name = ?, email = ?, gender = ?, password = ?, course = ? WHERE spid = ?;"
+        
+        var updatest:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, updatestr, -1, &updatest, nil) == SQLITE_OK {
+            //int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+            sqlite3_bind_text(updatest, 1, (e.name as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 2, (e.email as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 3, (e.gen as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 4, (e.pass as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 5, (e.cour as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(updatest,  6, Int32(e.spid))
+            if sqlite3_step(updatest) == SQLITE_DONE {
+                print("updated")
+                completion(true)
+            } else {
+                print("not updated")
+                completion(false)
+            }
+            
+        } else {
+            print("update statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(updatest)
     }
     func fetch() -> [stud] {
         let fetchstr = "SELECT * FROM student;"

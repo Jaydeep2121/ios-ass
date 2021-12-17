@@ -100,6 +100,7 @@ class Regpage: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(titlelabel)
         view.addSubview(spidtextfield)
@@ -109,6 +110,14 @@ class Regpage: UIViewController {
         view.addSubview(mysegment)
         view.addSubview(mysegment1)
         view.addSubview(savebutton)
+        if let s = Student{
+            spidtextfield.isEnabled = false
+            nametextfield.text = s.name
+            emailtextfield.text = s.email
+            passtextfield.text = s.pass
+//            mysegment.titleForSegment(at: mysegment.selectedSegmentIndex)
+//            mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -123,20 +132,21 @@ class Regpage: UIViewController {
     }
 }
 extension Regpage{
-    @objc func savenote(){
+    @objc private func savenote(){
         let id = spidtextfield.text!
         let name = nametextfield.text!
         let email = emailtextfield.text!
         let segm = mysegment.titleForSegment(at: mysegment.selectedSegmentIndex)!
         let pass = passtextfield.text!
         let cour = mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)!
-        if Student != nil{
-            print("hi")
+        if let student = Student {
+            let updstd = stud(spid: student.spid, name: name, email: email, gen: segm, pass: pass, cour: cour)
+            print("UPDATE\(updstd)")
+            update(Student:updstd)
         }else{
             print("Insert \(id),\(name),\(email),\(String(describing: segm)),\(cour)")
             let insstd = stud(spid: Int(id)!, name: name, email: email, gen: segm, pass: pass, cour: cour)
             insert(Student:insstd)
-            
         }
     }
     private func insert(Student:stud){
@@ -146,6 +156,16 @@ extension Regpage{
                 self.resetfields()
             } else {
                 print("Insert failed, recevied mesage at VC")
+            }
+        }
+    }
+    private func update(Student:stud) {
+        SqliteHandler.shared.update(e: Student) { (success) in
+            if success {
+                print("Update successfull, recevied mesage at VC")
+                self.resetfields()
+            } else {
+                print("Update failed, recevied mesage at VC")
             }
         }
     }
