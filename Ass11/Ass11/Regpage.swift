@@ -83,8 +83,7 @@ class Regpage: UIViewController {
         sg.insertSegment(withTitle: "Bcom", at: 0, animated: true)
         sg.insertSegment(withTitle: "BCA", at: 1, animated: true)
         sg.insertSegment(withTitle: "BBA", at: 2, animated: true)
-        sg.insertSegment(withTitle: "BSc", at: 3, animated: true)
-        sg.insertSegment(withTitle: "CA", at: 4, animated: true)
+        sg.insertSegment(withTitle: "All", at: 3, animated: true)
         return sg
     }()
     private let savebutton:UIButton = {
@@ -115,8 +114,22 @@ class Regpage: UIViewController {
             nametextfield.text = s.name
             emailtextfield.text = s.email
             passtextfield.text = s.pass
-//            mysegment.titleForSegment(at: mysegment.selectedSegmentIndex)
-//            mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)
+            if s.gen == "Male"{
+                mysegment.selectedSegmentIndex = 0
+            }else if s.gen == "Female"{
+                mysegment.selectedSegmentIndex = 1
+            }else{
+                mysegment.selectedSegmentIndex = 2
+            }
+            if s.cour == "Bcom"{
+                mysegment1.selectedSegmentIndex = 0
+            }else if s.cour == "BCA"{
+                mysegment1.selectedSegmentIndex = 1
+            }else if s.cour == "BBA"{
+                mysegment1.selectedSegmentIndex = 2
+            }else{
+                mysegment1.selectedSegmentIndex = 3
+            }
         }
     }
     override func viewDidLayoutSubviews() {
@@ -152,7 +165,9 @@ extension Regpage{
     private func insert(Student:stud){
         SqliteHandler.shared.insert(e: Student) { (success) in
             if success {
-                print("Insert successfull, recevied mesage at VC")
+                let alert = UIAlertController(title: "Success", message: "Data Added", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 self.resetfields()
             } else {
                 print("Insert failed, recevied mesage at VC")
@@ -162,7 +177,9 @@ extension Regpage{
     private func update(Student:stud) {
         SqliteHandler.shared.update(e: Student) { (success) in
             if success {
-                print("Update successfull, recevied mesage at VC")
+                let alert = UIAlertController(title: "Success", message: "Data Update", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
                 self.resetfields()
             } else {
                 print("Update failed, recevied mesage at VC")

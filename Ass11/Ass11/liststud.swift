@@ -10,11 +10,36 @@ import UIKit
 
 class liststud: UIViewController {
     private let myTable = UITableView()
+    private let notice:UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "NoticeBoard"
+        label.textColor = .green
+        label.font = UIFont.italicSystemFont(ofSize: 15)
+        label.font = UIFont(name: "HelveticaNeue-UltraBold", size: 15)
+        return label
+    }()
+    private let studlabel:UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "New Student"
+        label.textColor = .green
+        label.font = UIFont.italicSystemFont(ofSize: 15)
+        label.font = UIFont(name: "HelveticaNeue-UltraBold", size: 15)
+        return label
+    }()
     private let toolBar:UIToolbar = {
         let toolBar = UIToolbar()
         let item1 = UIBarButtonItem(barButtonSystemItem: .add, target:self, action: #selector(add_note))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.items = [space, item1,space]
+        toolBar.items = [space, space,item1]
+        return toolBar
+    }()
+    private let toolBarnotice:UIToolbar = {
+        let toolBar = UIToolbar()
+        let item1 = UIBarButtonItem(barButtonSystemItem: .add, target:self, action: #selector(add_notice))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.items = [item1,space, space]
         return toolBar
     }()
     private var notes = [stud]()
@@ -23,6 +48,9 @@ class liststud: UIViewController {
         view.backgroundColor = .white
         view.addSubview(myTable)
         view.addSubview(toolBar)
+        view.addSubview(toolBarnotice)
+        view.addSubview(notice)
+        view.addSubview(studlabel)
         myTable.dataSource = self
         myTable.delegate = self
         myTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -31,7 +59,10 @@ class liststud: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        toolBar.frame = CGRect(x: 0, y: 20, width: view.width, height: 40)
+       toolBar.frame = CGRect(x: 0, y: 20, width: view.width, height: 40)
+        toolBarnotice.frame = CGRect(x: 0, y: 20, width: view.width-50, height: 40)
+        notice.frame = CGRect(x: 10, y: 20, width: view.width-200, height: 40)
+        studlabel.frame = CGRect(x: 100, y: 20, width: view.width, height: 40)
         myTable.frame = CGRect(x: 0,y: toolBar.bottom + 10, width: view.frame.size.width,
                                height: view.frame.size.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
         
@@ -48,6 +79,10 @@ class liststud: UIViewController {
     {
         let vc = Regpage()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func add_notice(){
+        let sc = NoticeVC()
+        navigationController?.pushViewController(sc, animated: true)
     }
     
 }

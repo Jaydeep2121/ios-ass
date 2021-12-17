@@ -31,24 +31,29 @@ class SqliteHandler {
         }
     }
     private func createtable(){
+//        CREATE TABLE IF NOT EXISTS student(
+//            spid INTEGER PRIMARY KEY,
+//            name TEXT,
+//            email TEXT,
+//            gender TEXT,
+//            password TEXT,
+//            course TEXT);
         let createTableString = """
-            CREATE TABLE IF NOT EXISTS student(
-                spid INTEGER PRIMARY KEY,
-                name TEXT,
-                email TEXT,
-                gender TEXT,
-                password TEXT,
+           CREATE TABLE IF NOT EXISTS noticeb(
+                title TEXT,
+                data TEXT,
+                pdate TEXT,
                 course TEXT);
         """
         var creatTableStatement:OpaquePointer? = nil
         if sqlite3_prepare_v2(db, createTableString, -1, &creatTableStatement, nil) == SQLITE_OK{
             if sqlite3_step(creatTableStatement)==SQLITE_DONE {
-                print("student created")
+                print("notic created")
             }else{
-                print("student no created")
+                print("notic no created")
             }
         }else{
-            print("student table not prepared")
+            print("notic table not prepared")
         }
         sqlite3_finalize(creatTableStatement)
     }
@@ -89,6 +94,31 @@ class SqliteHandler {
             sqlite3_bind_text(insertst, 4, (e.gen as NSString).utf8String, -1, nil)
             sqlite3_bind_text(insertst, 5, (e.pass as NSString).utf8String, -1, nil)
             sqlite3_bind_text(insertst, 6, (e.cour as NSString).utf8String, -1, nil)
+            if sqlite3_step(insertst) == SQLITE_DONE {
+                print("inserted")
+                completion(true)
+            } else {
+                print("not inserted")
+                completion(false)
+            }
+            
+        } else {
+            print("Insert statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(insertst)
+    }
+    func insertnotice(e:notice, completion: @escaping ((Bool) -> Void)) {
+        let insertstr = "INSERT INTO noticeb (title,data,pdate,course) VALUES (?, ?, ?, ?);"
+        
+        var insertst:OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, insertstr, -1, &insertst, nil) == SQLITE_OK {
+            //int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+            sqlite3_bind_text(insertst, 1, (e.title as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 2, (e.data as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 3, (e.pdate as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertst, 4, (e.course as NSString).utf8String, -1, nil)
+            
             if sqlite3_step(insertst) == SQLITE_DONE {
                 print("inserted")
                 completion(true)
