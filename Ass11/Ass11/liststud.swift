@@ -10,47 +10,31 @@ import UIKit
 
 class liststud: UIViewController {
     private let myTable = UITableView()
-    private let notice:UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "NoticeBoard"
-        label.textColor = .green
-        label.font = UIFont.italicSystemFont(ofSize: 15)
-        label.font = UIFont(name: "HelveticaNeue-UltraBold", size: 15)
-        return label
+    private let addview:UIButton = {
+        let button = UIButton()
+        button.setTitle("View Notice", for: .normal)
+        button.addTarget(self, action: #selector(add_notice), for: .touchUpInside)
+        button.tintColor = .white
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 6
+        return button
     }()
-    private let studlabel:UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "New Student"
-        label.textColor = .green
-        label.font = UIFont.italicSystemFont(ofSize: 15)
-        label.font = UIFont(name: "HelveticaNeue-UltraBold", size: 15)
-        return label
-    }()
-    private let toolBar:UIToolbar = {
-        let toolBar = UIToolbar()
-        let item1 = UIBarButtonItem(barButtonSystemItem: .add, target:self, action: #selector(add_note))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.items = [space, space,item1]
-        return toolBar
-    }()
-    private let toolBarnotice:UIToolbar = {
-        let toolBar = UIToolbar()
-        let item1 = UIBarButtonItem(barButtonSystemItem: .add, target:self, action: #selector(add_notice))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolBar.items = [item1,space, space]
-        return toolBar
+    private let addstud:UIButton = {
+        let button = UIButton()
+        button.setTitle("Add Student", for: .normal)
+        button.addTarget(self, action: #selector(add_note), for: .touchUpInside)
+        button.tintColor = .white
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 6
+        return button
     }()
     private var notes = [stud]()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(myTable)
-        view.addSubview(toolBar)
-        view.addSubview(toolBarnotice)
-        view.addSubview(notice)
-        view.addSubview(studlabel)
+        view.addSubview(addstud)
+        view.addSubview(addview)
         myTable.dataSource = self
         myTable.delegate = self
         myTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -59,11 +43,9 @@ class liststud: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-       toolBar.frame = CGRect(x: 0, y: 20, width: view.width, height: 40)
-        toolBarnotice.frame = CGRect(x: 0, y: 20, width: view.width-50, height: 40)
-        notice.frame = CGRect(x: 10, y: 20, width: view.width-200, height: 40)
-        studlabel.frame = CGRect(x: 100, y: 20, width: view.width, height: 40)
-        myTable.frame = CGRect(x: 0,y: toolBar.bottom + 10, width: view.frame.size.width,
+        addview.frame = CGRect(x: 10, y: 20, width: 150, height: 40)
+        addstud.frame = CGRect(x: addview.left+210, y: 20, width: 150, height: 40)
+        myTable.frame = CGRect(x: 0,y: 70, width: view.frame.size.width,
                                height: view.frame.size.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
         
     }

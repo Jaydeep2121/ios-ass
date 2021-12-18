@@ -80,14 +80,14 @@ class SqliteHandler {
         }
         sqlite3_finalize(deletest)
     }
-    func deletenotice(for co:NSString, completion: @escaping ((Bool) -> Void)) {
+    func deletenotice(co:notice, completion: @escaping ((Bool) -> Void)) {
         
       let deletestr = "delete from noticeb where course=?;"
         
         var deletest:OpaquePointer? = nil
         
         if sqlite3_prepare_v2(db, deletestr, -1, &deletest, nil) == SQLITE_OK {
-            sqlite3_bind_text(deletest, 1, co.utf8String, -1, nil)
+            sqlite3_bind_text(deletest, 1, co.course, -1, nil)
             if sqlite3_step(deletest) == SQLITE_DONE {
                 print("deleted")
                 completion(true)
@@ -95,7 +95,6 @@ class SqliteHandler {
                 print("not deleted")
                 completion(false)
             }
-
         } else {
             print("delete statement could not be prepared")
             completion(false)
@@ -181,8 +180,23 @@ class SqliteHandler {
         }
         sqlite3_finalize(updatest)
     }
+    func fetchid(id:Int , completion: @escaping ((Bool) -> Void))-> Int {
+        let fetchstr = "SELECT spid FROM student where spid=?;"
+        var sid = 0
+        var fetchst:OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
+            sqlite3_bind_int(fetchst,  1, Int32(id))
+            while sqlite3_step(fetchst) == SQLITE_ROW {
+                sid = Int(sqlite3_column_int(fetchst, 0))
+            }
+        } else {
+            print("fetch statement could not be prepared")
+        }
+        sqlite3_finalize(fetchst)
+        return sid
+    }
     func updatenotice(e:notice, completion: @escaping ((Bool) -> Void)) {
-        let updatestr = "UPDATE noticeb SET title = ?, data = ?,pdate = ? WHERE course = ?;"
+        let updatestr = "update noticeb set title=?,data=?,pdate=? where course=?"
         
         var updatest:OpaquePointer? = nil
         
@@ -191,7 +205,8 @@ class SqliteHandler {
             sqlite3_bind_text(updatest, 1, (e.title as NSString).utf8String, -1, nil)
             sqlite3_bind_text(updatest, 2, (e.data as NSString).utf8String, -1, nil)
             sqlite3_bind_text(updatest, 3, (e.pdate as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(updatest, 5, (e.course as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 4, (e.course as NSString).utf8String, -1, nil)
+            print(updatestr)
             if sqlite3_step(updatest) == SQLITE_DONE {
                 print("updated")
                 completion(true)
@@ -199,7 +214,6 @@ class SqliteHandler {
                 print("not updated")
                 completion(false)
             }
-            
         } else {
             print("update statement could not be prepared")
             completion(false)
@@ -223,7 +237,6 @@ class SqliteHandler {
             
         } else {
             print("fetch statement could not be prepared")
-            
         }
         sqlite3_finalize(fetchst)
         return emp
@@ -252,4 +265,5 @@ class SqliteHandler {
         sqlite3_finalize(fetchst)
         return emp
     }
+    
 }

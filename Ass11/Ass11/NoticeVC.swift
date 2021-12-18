@@ -106,7 +106,6 @@ extension NoticeVC{
         let don = "\(components.day!)-\(components.month!)-\(components.year!)"
         if S1 != nil {
             let updstd = notice(title: title, data: descr, pdate: don, course: cour)
-            print("UPDATE\(updstd)")
             update(Student:updstd)
         }else{
             let insstd = notice(title: title, data: descr, pdate: don, course: cour)

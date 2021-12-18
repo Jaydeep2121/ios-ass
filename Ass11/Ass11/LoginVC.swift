@@ -9,6 +9,7 @@
 import UIKit
 
 class LoginVC: UIViewController {
+    var Student:stud?
     let uname = "Admin"
     let upass = "admin123"
     private let titlelabel:UILabel = {
@@ -84,9 +85,9 @@ class LoginVC: UIViewController {
         view.addSubview(loginbutton)
     }
     @objc func loginClickbtn(){
-        let sc = liststud()
-        navigationController?.pushViewController(sc, animated: true)
-        //var alert = UIAlertController()
+        var alert = UIAlertController()
+        //let sc = liststud()
+        //navigationController?.pushViewController(sc, animated: true)
 //        if usertext.text == uname && passtext.text == upass {
 //            let sc = liststud()
 //            navigationController?.pushViewController(sc, animated: true)
@@ -95,6 +96,21 @@ class LoginVC: UIViewController {
 //            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }
+        let sid = Int(usertext.text!) ?? 0
+        let id = SqliteHandler.shared.fetchid(id: sid) {_ in}
+        if Int(usertext.text!) == sid &&  Int(passtext.text!) == sid{
+            print("log in")
+            print(id)
+        }else if(usertext.text == uname && passtext.text == upass){
+            let sc = liststud()
+            navigationController?.pushViewController(sc, animated: true)
+        }else{
+            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            usertext.text=""
+            passtext.text=""
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

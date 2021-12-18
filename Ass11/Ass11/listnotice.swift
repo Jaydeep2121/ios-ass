@@ -63,17 +63,14 @@ extension listnotice: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let id = notes[indexPath.row]
-        SqliteHandler.shared.deletenotice(for: id as NSString) { (success) in
+        SqliteHandler.shared.deletenotice(co: notes[indexPath.row]) { (success) in
             if success {
                 print("Deleted in VC")
                 self.notes.remove(at: indexPath.row)
                 self.myTable.deleteRows(at: [indexPath], with: .automatic)
             } else {
-                print(id)
                 print("not Deleted in VC")
             }
         }
     }
-    
 }
