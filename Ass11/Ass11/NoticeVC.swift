@@ -72,32 +72,23 @@ class NoticeVC: UIViewController {
         view.addSubview(Datepicker)
         view.addSubview(mysegment1)
         view.addSubview(savebutton)
-//        if let s = Student{
-//            spidtextfield.isEnabled = false
-//            nametextfield.text = s.name
-//            emailtextfield.text = s.email
-//            passtextfield.text = s.pass
-//            if s.gen == "Male"{
-//                mysegment.selectedSegmentIndex = 0
-//            }else if s.gen == "Female"{
-//                mysegment.selectedSegmentIndex = 1
-//            }else{
-//                mysegment.selectedSegmentIndex = 2
-//            }
-//            if s.cour == "Bcom"{
-//                mysegment1.selectedSegmentIndex = 0
-//            }else if s.cour == "BCA"{
-//                mysegment1.selectedSegmentIndex = 1
-//            }else if s.cour == "BBA"{
-//                mysegment1.selectedSegmentIndex = 2
-//            }else{
-//                mysegment1.selectedSegmentIndex = 3
-//            }
-//        }
+        if let n = S1{
+            titletextfield.text = n.title
+            desctextfield.text = n.data
+            if n.course == "Bcom"{
+                mysegment1.selectedSegmentIndex = 0
+            }else if n.course == "BBA"{
+                mysegment1.selectedSegmentIndex = 1
+            }else if n.course == "BCA"{
+                mysegment1.selectedSegmentIndex = 2
+            }else if n.course == "ALL"{
+                mysegment1.selectedSegmentIndex = 3
+            }
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        titlelabel.frame = CGRect(x: 10, y: 20, width: view.width-10, height: 100)
+        titlelabel.frame = CGRect(x: 10, y: 30, width: view.width-10, height: 100)
         titletextfield.frame = CGRect(x: 30, y: titlelabel.bottom+20, width: view.width-60, height: 40)
         desctextfield.frame = CGRect(x: 30, y: titletextfield.bottom + 20, width: view.width-60, height: 100)
         Datepicker.frame = CGRect(x: 30, y: desctextfield.bottom + 20, width: view.width-60, height: 70)
@@ -113,16 +104,17 @@ extension NoticeVC{
         let components = cal.dateComponents([.day,.month,.year], from: Datepicker.date)
         let cour = mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)!
         let don = "\(components.day!)-\(components.month!)-\(components.year!)"
-        if S1 != nil{
-            print("Update")
+        if S1 != nil {
+            let updstd = notice(title: title, data: descr, pdate: don, course: cour)
+            print("UPDATE\(updstd)")
+            update(Student:updstd)
         }else{
             let insstd = notice(title: title, data: descr, pdate: don, course: cour)
-            insertnotice(student:insstd)
-//            print(title,descr,cour,don)
+            insertnotice(Student:insstd)
         }
     }
-    private func insertnotice(student:notice){
-        SqliteHandler.shared.insertnotice(e: student) { (success) in
+    private func insertnotice(Student:notice){
+        SqliteHandler.shared.insertnotice(e: Student) { (success) in
             if success {
                 let alert = UIAlertController(title: "Success", message: "Notice Published..", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
@@ -133,18 +125,18 @@ extension NoticeVC{
             }
         }
     }
-//    private func update(Student:stud) {
-//        SqliteHandler.shared.update(e: Student) { (success) in
-//            if success {
-//                let alert = UIAlertController(title: "Success", message: "Data Update", preferredStyle: UIAlertController.Style.alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
-//                self.resetfields()
-//            } else {
-//                print("Update failed, recevied mesage at VC")
-//            }
-//        }
-//    }
+    private func update(Student:notice) {
+        SqliteHandler.shared.updatenotice(e: Student) { (success) in
+            if success {
+                let alert = UIAlertController(title: "Success", message: "Data Update", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                self.resetfields()
+            } else {
+                print("Update failed, recevied mesage at VC")
+            }
+        }
+    }
     private func resetfields()
     {
         titletextfield.text=""

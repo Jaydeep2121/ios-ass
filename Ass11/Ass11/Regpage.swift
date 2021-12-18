@@ -134,7 +134,7 @@ class Regpage: UIViewController {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        titlelabel.frame = CGRect(x: 10, y: 20, width: view.width-10, height: 100)
+        titlelabel.frame = CGRect(x: 10, y: 30, width: view.width-10, height: 100)
         spidtextfield.frame = CGRect(x: 30, y: titlelabel.bottom+20, width: view.width-60, height: 40)
         nametextfield.frame = CGRect(x: 30, y: spidtextfield.bottom + 20, width: view.width-60, height: 40)
         emailtextfield.frame = CGRect(x: 30, y: nametextfield.bottom + 20, width: view.width-60, height: 40)

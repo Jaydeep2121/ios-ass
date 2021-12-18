@@ -80,7 +80,28 @@ class SqliteHandler {
         }
         sqlite3_finalize(deletest)
     }
-    
+    func deletenotice(for co:NSString, completion: @escaping ((Bool) -> Void)) {
+        
+      let deletestr = "delete from noticeb where course=?;"
+        
+        var deletest:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, deletestr, -1, &deletest, nil) == SQLITE_OK {
+            sqlite3_bind_text(deletest, 1, co.utf8String, -1, nil)
+            if sqlite3_step(deletest) == SQLITE_DONE {
+                print("deleted")
+                completion(true)
+            } else {
+                print("not deleted")
+                completion(false)
+            }
+
+        } else {
+            print("delete statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(deletest)
+    }
     func insert(e:stud, completion: @escaping ((Bool) -> Void)) {
         let insertstr = "INSERT INTO student (spid,name,email,gender,password,course) VALUES (?, ?, ? , ?, ?, ?);"
         
@@ -159,6 +180,53 @@ class SqliteHandler {
             completion(false)
         }
         sqlite3_finalize(updatest)
+    }
+    func updatenotice(e:notice, completion: @escaping ((Bool) -> Void)) {
+        let updatestr = "UPDATE noticeb SET title = ?, data = ?,pdate = ? WHERE course = ?;"
+        
+        var updatest:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, updatestr, -1, &updatest, nil) == SQLITE_OK {
+            //int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+            sqlite3_bind_text(updatest, 1, (e.title as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 2, (e.data as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 3, (e.pdate as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updatest, 5, (e.course as NSString).utf8String, -1, nil)
+            if sqlite3_step(updatest) == SQLITE_DONE {
+                print("updated")
+                completion(true)
+            } else {
+                print("not updated")
+                completion(false)
+            }
+            
+        } else {
+            print("update statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(updatest)
+    }
+    func fetchnotice() -> [notice]{
+        let fetchstr = "SELECT * FROM noticeb;"
+        var emp = [notice]()
+        var fetchst:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
+            
+            while sqlite3_step(fetchst) == SQLITE_ROW {
+                let titles = String(cString: sqlite3_column_text(fetchst, 0))
+                let dscr = String(cString: sqlite3_column_text(fetchst, 1))
+                let dates = String(cString: sqlite3_column_text(fetchst, 2))
+                let cord = String(cString: sqlite3_column_text(fetchst, 3))
+                emp.append(notice(title:titles,data:dscr,pdate:dates,course:cord))
+            }
+            
+        } else {
+            print("fetch statement could not be prepared")
+            
+        }
+        sqlite3_finalize(fetchst)
+        return emp
     }
     func fetch() -> [stud] {
         let fetchstr = "SELECT * FROM student;"
