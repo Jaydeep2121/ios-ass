@@ -15,6 +15,9 @@
 		0B3C391D276A0BDC0020A4AD /* stud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C391C276A0BDC0020A4AD /* stud.swift */; };
 		0B3C391F276A0FF10020A4AD /* SqliteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3C391E276A0FF10020A4AD /* SqliteHandler.swift */; };
 		0B6622F0276D8D5A00EEFCDB /* listnotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6622EF276D8D5A00EEFCDB /* listnotice.swift */; };
+		0B78617027703917007F9814 /* changepwd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78616F27703917007F9814 /* changepwd.swift */; };
+		0B78617227703B94007F9814 /* StudentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78617127703B94007F9814 /* StudentVC.swift */; };
+		0B78617427703F3A007F9814 /* ViewStudentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78617327703F3A007F9814 /* ViewStudentData.swift */; };
 		0BAEA60827685EFE0074B1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAEA60727685EFE0074B1D9 /* AppDelegate.swift */; };
 		0BAEA60A27685EFF0074B1D9 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAEA60927685EFF0074B1D9 /* LoginVC.swift */; };
 		0BAEA60D27685EFF0074B1D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BAEA60B27685EFF0074B1D9 /* Main.storyboard */; };
@@ -31,6 +34,9 @@
 		0B3C391C276A0BDC0020A4AD /* stud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stud.swift; sourceTree = "<group>"; };
 		0B3C391E276A0FF10020A4AD /* SqliteHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteHandler.swift; sourceTree = "<group>"; };
 		0B6622EF276D8D5A00EEFCDB /* listnotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listnotice.swift; sourceTree = "<group>"; };
+		0B78616F27703917007F9814 /* changepwd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changepwd.swift; sourceTree = "<group>"; };
+		0B78617127703B94007F9814 /* StudentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentVC.swift; sourceTree = "<group>"; };
+		0B78617327703F3A007F9814 /* ViewStudentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStudentData.swift; sourceTree = "<group>"; };
 		0BAEA60427685EFE0074B1D9 /* Ass11.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ass11.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAEA60727685EFE0074B1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BAEA60927685EFF0074B1D9 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -84,6 +90,9 @@
 				0B3C391E276A0FF10020A4AD /* SqliteHandler.swift */,
 				0B081F46276B4C8700CA3038 /* liststud.swift */,
 				0B6622EF276D8D5A00EEFCDB /* listnotice.swift */,
+				0B78616F27703917007F9814 /* changepwd.swift */,
+				0B78617127703B94007F9814 /* StudentVC.swift */,
+				0B78617327703F3A007F9814 /* ViewStudentData.swift */,
 			);
 			path = Ass11;
 			sourceTree = "<group>";
@@ -161,14 +170,17 @@
 			files = (
 				0B28C204276C96D8000B5800 /* notice.swift in Sources */,
 				0B6622F0276D8D5A00EEFCDB /* listnotice.swift in Sources */,
+				0B78617227703B94007F9814 /* StudentVC.swift in Sources */,
 				0B2FC137276887D3002FCDDA /* extension.swift in Sources */,
 				0BAEA60A27685EFF0074B1D9 /* LoginVC.swift in Sources */,
 				0B3C391F276A0FF10020A4AD /* SqliteHandler.swift in Sources */,
 				0B081F47276B4C8700CA3038 /* liststud.swift in Sources */,
 				0B28C202276C86A0000B5800 /* NoticeVC.swift in Sources */,
 				0BAEA60827685EFE0074B1D9 /* AppDelegate.swift in Sources */,
+				0B78617427703F3A007F9814 /* ViewStudentData.swift in Sources */,
 				0B3C391D276A0BDC0020A4AD /* stud.swift in Sources */,
 				0B2FC13927689E9A002FCDDA /* Regpage.swift in Sources */,
+				0B78617027703917007F9814 /* changepwd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
