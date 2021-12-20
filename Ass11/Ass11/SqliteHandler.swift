@@ -234,7 +234,27 @@ class SqliteHandler {
                 let cord = String(cString: sqlite3_column_text(fetchst, 3))
                 emp.append(notice(title:titles,data:dscr,pdate:dates,course:cord))
             }
-            
+        } else {
+            print("fetch statement could not be prepared")
+        }
+        sqlite3_finalize(fetchst)
+        return emp
+    }
+    func fetchdata(id:Int , completion: @escaping ((Bool) -> Void)) -> [stud] {
+        let fetchstr = "SELECT * FROM student WHERE spid=?;"
+        var emp = [stud]()
+        var fetchst:OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
+            sqlite3_bind_int(fetchst,  1, Int32(id))
+            while sqlite3_step(fetchst) == SQLITE_ROW {
+                let id = Int(sqlite3_column_int(fetchst, 0))
+                let name =  String(cString: sqlite3_column_text(fetchst, 1))
+                let email = String(cString: sqlite3_column_text(fetchst, 2))
+                let gen = String(cString: sqlite3_column_text(fetchst, 3))
+                let pass = String(cString: sqlite3_column_text(fetchst, 4))
+                let cour = String(cString: sqlite3_column_text(fetchst, 5))
+                emp.append(stud(spid: id, name:name,email: email,gen: gen,pass:pass, cour: cour))
+            }
         } else {
             print("fetch statement could not be prepared")
         }

@@ -65,7 +65,7 @@ class changepwd: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "image1.jpg")!)
+        view.backgroundColor = .white
         view.addSubview(titlelabel)
         view.addSubview(loginlabel)
         view.addSubview(usertext)
@@ -74,6 +74,9 @@ class changepwd: UIViewController {
     }
     @objc func ChangeClickbtn(){
         print("hi change passwd")
+        if let myid = UserDefaults.standard.string(forKey: "usrid"){
+            print(myid)
+        }
         //let sc = liststud()
         //navigationController?.pushViewController(sc, animated: true)
         //        if usertext.text == uname && passtext.text == upass {

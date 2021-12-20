@@ -26,8 +26,12 @@ class StudentVC: UIViewController {
         button.layer.cornerRadius = 6
         return button
     }()
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(studviewbtn)
         view.addSubview(noticeviewbtn)
     }

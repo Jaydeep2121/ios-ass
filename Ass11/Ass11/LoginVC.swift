@@ -96,7 +96,16 @@ class LoginVC: UIViewController {
 //            self.present(alert, animated: true, completion: nil)
 //        }
         
-          
+        
+                let sid = Int(usertext.text!) ?? 0
+                let id = SqliteHandler.shared.fetchid(id: sid) {_ in}
+                if Int(usertext.text!) == sid &&  Int(passtext.text!) == sid{
+                    UserDefaults.standard.setValue(sid, forKey:"usrid")
+                    print(id)
+                    let vc = StudentVC()
+                    navigationController?.pushViewController(vc, animated: true)
+                    self.dismiss(animated: true)
+                }
 //        var alert = UIAlertController()
 //        let sid = Int(usertext.text!) ?? 0
 //        let id = SqliteHandler.shared.fetchid(id: sid) {_ in}

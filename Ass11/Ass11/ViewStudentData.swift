@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewStudentData: UIViewController {
+    var S2:stud?
+    let temp = SqliteHandler.shared
+    private var notes = [stud]()
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -107,6 +110,34 @@ class ViewStudentData: UIViewController {
         view.addSubview(mysegment)
         view.addSubview(mysegment1)
         view.addSubview(chagebtn)
+        
+        notes = SqliteHandler.shared.fetchdata(id: 20211) {_ in}
+            spidtextfield.isEnabled = false
+            nametextfield.isEnabled = false
+            emailtextfield.isEnabled = false
+            passtextfield.isEnabled = false
+            mysegment.isEnabled = false
+            mysegment1.isEnabled = false
+            spidtextfield.text = "\(notes[0].spid)"
+            nametextfield.text = notes[0].name
+            emailtextfield.text = notes[0].email
+            passtextfield.text = notes[0].pass
+            if notes[0].gen == "Male"{
+                mysegment.selectedSegmentIndex = 0
+            }else if notes[0].gen == "Female"{
+                mysegment.selectedSegmentIndex = 1
+            }else{
+                mysegment.selectedSegmentIndex = 2
+            }
+            if notes[0].cour == "Bcom"{
+                mysegment1.selectedSegmentIndex = 0
+            }else if notes[0].cour == "BCA"{
+                mysegment1.selectedSegmentIndex = 1
+            }else if notes[0].cour == "BBA"{
+                mysegment1.selectedSegmentIndex = 2
+            }else{
+                mysegment1.selectedSegmentIndex = 3
+            }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -122,6 +153,7 @@ class ViewStudentData: UIViewController {
 }
 extension ViewStudentData{
     @objc func chagepwd(){
-        
+        let sc = changepwd()
+        navigationController?.pushViewController(sc, animated: true)
     }
 }
