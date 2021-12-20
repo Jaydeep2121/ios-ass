@@ -122,6 +122,7 @@ class ViewStudentData: UIViewController {
             nametextfield.text = notes[0].name
             emailtextfield.text = notes[0].email
             passtextfield.text = notes[0].pass
+            UserDefaults.standard.setValue(notes[0].pass, forKey:"pwd")
             if notes[0].gen == "Male"{
                 mysegment.selectedSegmentIndex = 0
             }else if notes[0].gen == "Female"{

@@ -180,20 +180,22 @@ class SqliteHandler {
         }
         sqlite3_finalize(updatest)
     }
-    func fetchid(id:Int , completion: @escaping ((Bool) -> Void))-> Int {
-        let fetchstr = "SELECT spid FROM student where spid=?;"
-        var sid = 0
+    func fetchid(id:Int , completion: @escaping ((Bool) -> Void))-> [stud] {
+        let fetchstr = "SELECT spid,password FROM student where spid=?;"
+        var emp = [stud]()
         var fetchst:OpaquePointer? = nil
         if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
             sqlite3_bind_int(fetchst,  1, Int32(id))
             while sqlite3_step(fetchst) == SQLITE_ROW {
-                sid = Int(sqlite3_column_int(fetchst, 0))
+                let sid = Int(sqlite3_column_int(fetchst, 0))
+                let passd = String(cString: sqlite3_column_text(fetchst, 1))
+                emp.append(stud(spid: sid, name: "", email: "", gen: "", pass: passd, cour: ""))
             }
         } else {
             print("fetch statement could not be prepared")
         }
         sqlite3_finalize(fetchst)
-        return sid
+        return emp
     }
     func updatenotice(e:notice, completion: @escaping ((Bool) -> Void)) {
         let updatestr = "update noticeb set title=?,data=?,pdate=? where course=?"

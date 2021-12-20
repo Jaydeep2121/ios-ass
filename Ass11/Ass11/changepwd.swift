@@ -73,38 +73,23 @@ class changepwd: UIViewController {
         view.addSubview(loginbutton)
     }
     @objc func ChangeClickbtn(){
-        print("hi change passwd")
-        if let myid = UserDefaults.standard.string(forKey: "usrid"){
-            print(myid)
+        var alert = UIAlertController()
+        if usertext.text == passtext.text && usertext.text != "" && passtext.text != "" {
+            print("hi change passwd")
+            
+//            if let myid = UserDefaults.standard.string(forKey: "usrid"){
+//                print(myid)
+//            }
+//            if let pass = UserDefaults.standard.string(forKey: "pwd"){
+//                print(pass)
+//            }
+        }else{
+            alert = UIAlertController(title: "Not Same", message: "Password and confirm Password is not same", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            usertext.text = ""
+            passtext.text = ""
         }
-        //let sc = liststud()
-        //navigationController?.pushViewController(sc, animated: true)
-        //        if usertext.text == uname && passtext.text == upass {
-        //            let sc = liststud()
-        //            navigationController?.pushViewController(sc, animated: true)
-        //        }else{
-        //            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
-        //            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        //            self.present(alert, animated: true, completion: nil)
-        //        }
-        
-        
-        //        var alert = UIAlertController()
-        //        let sid = Int(usertext.text!) ?? 0
-        //        let id = SqliteHandler.shared.fetchid(id: sid) {_ in}
-        //        if Int(usertext.text!) == sid &&  Int(passtext.text!) == sid{
-        //            print("log in")
-        //            print(id)
-        //        }else if(usertext.text == uname && passtext.text == upass){
-        //            let sc = liststud()
-        //            navigationController?.pushViewController(sc, animated: true)
-        //        }else{
-        //            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
-        //            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        //            self.present(alert, animated: true, completion: nil)
-        //            usertext.text=""
-        //            passtext.text=""
-        //        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

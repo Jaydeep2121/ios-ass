@@ -12,6 +12,7 @@ class LoginVC: UIViewController {
     var Student:stud?
     let uname = "Admin"
     let upass = "admin123"
+    private let notes = [stud]()
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -76,6 +77,7 @@ class LoginVC: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "image1.jpg")!)
         view.addSubview(titlelabel)
         view.addSubview(loginlabel)
@@ -85,43 +87,26 @@ class LoginVC: UIViewController {
         view.addSubview(loginbutton)
     }
     @objc func loginClickbtn(){
-        //let sc = liststud()
-        //navigationController?.pushViewController(sc, animated: true)
-//        if usertext.text == uname && passtext.text == upass {
-//            let sc = liststud()
-//            navigationController?.pushViewController(sc, animated: true)
-//        }else{
-//            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-        
-        
-                let sid = Int(usertext.text!) ?? 0
-                let id = SqliteHandler.shared.fetchid(id: sid) {_ in}
-                if Int(usertext.text!) == sid &&  Int(passtext.text!) == sid{
-                    UserDefaults.standard.setValue(sid, forKey:"usrid")
-                    print(id)
-                    let vc = StudentVC()
-                    navigationController?.pushViewController(vc, animated: true)
-                    self.dismiss(animated: true)
-                }
-//        var alert = UIAlertController()
-//        let sid = Int(usertext.text!) ?? 0
-//        let id = SqliteHandler.shared.fetchid(id: sid) {_ in}
-//        if Int(usertext.text!) == sid &&  Int(passtext.text!) == sid{
-//            print("log in")
-//            print(id)
-//        }else if(usertext.text == uname && passtext.text == upass){
-//            let sc = liststud()
-//            navigationController?.pushViewController(sc, animated: true)
-//        }else{
-//            alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//            usertext.text=""
-//            passtext.text=""
-//        }
+        var alert = UIAlertController()
+        let sid = Int(usertext.text!) ?? 0
+        let notes = SqliteHandler.shared.fetchid(id: sid) {_ in}
+        if notes.isEmpty{
+            if usertext.text == uname && passtext.text == upass {
+                let sc = liststud()
+                navigationController?.pushViewController(sc, animated: true)
+            }else{
+                alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            if Int(usertext.text!) == notes[0].spid &&  passtext.text == notes[0].pass{
+                UserDefaults.standard.setValue(notes[0].spid, forKey:"usrid")
+                let vc = StudentVC()
+                navigationController?.pushViewController(vc, animated: true)
+                self.dismiss(animated: true)
+            }
+        }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
