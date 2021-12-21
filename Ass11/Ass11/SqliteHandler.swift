@@ -180,6 +180,29 @@ class SqliteHandler {
         }
         sqlite3_finalize(updatest)
     }
+    func updatepwd(e:stud, completion: @escaping ((Bool) -> Void)) {
+        let updatestr = "UPDATE student SET password = ? WHERE spid = ?;"
+        
+        var updatest:OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, updatestr, -1, &updatest, nil) == SQLITE_OK {
+            //int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+            sqlite3_bind_text(updatest, 1, (e.pass as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(updatest,  2, Int32(e.spid))
+            if sqlite3_step(updatest) == SQLITE_DONE {
+                print("updated")
+                completion(true)
+            } else {
+                print("not updated")
+                completion(false)
+            }
+            
+        } else {
+            print("update statement could not be prepared")
+            completion(false)
+        }
+        sqlite3_finalize(updatest)
+    }
     func fetchid(id:Int , completion: @escaping ((Bool) -> Void))-> [stud] {
         let fetchstr = "SELECT spid,password FROM student where spid=?;"
         var emp = [stud]()

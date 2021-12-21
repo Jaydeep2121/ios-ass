@@ -10,6 +10,16 @@ import UIKit
 
 class liststud: UIViewController {
     private let myTable = UITableView()
+    private let logout:UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(logoutclick), for: .touchUpInside)
+        let img = UIImage(named: "LogOut.jpeg")
+        button.setImage(img, for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .green
+        button.layer.cornerRadius = 6
+        return button
+    }()
     private let addview:UIButton = {
         let button = UIButton()
         button.setTitle("View Notice", for: .normal)
@@ -33,6 +43,7 @@ class liststud: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(myTable)
+        view.addSubview(logout)
         view.addSubview(addstud)
         view.addSubview(addview)
         myTable.dataSource = self
@@ -47,7 +58,7 @@ class liststud: UIViewController {
         addstud.frame = CGRect(x: addview.left+210, y: 20, width: 150, height: 40)
         myTable.frame = CGRect(x: 0,y: 70, width: view.frame.size.width,
                                height: view.frame.size.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
-        
+        logout.frame = CGRect(x: 160, y: 15, width: 60, height: 60)
     }
     override func viewWillAppear(_ animated: Bool) {
         notes = SqliteHandler.shared.fetch()
@@ -66,7 +77,12 @@ class liststud: UIViewController {
         let sc = listnotice()
         navigationController?.pushViewController(sc, animated: true)
     }
-    
+    @objc func logoutclick(){
+        UserDefaults.standard.set(nil, forKey:"usrid")
+        let vc = LoginVC()
+        navigationController?.pushViewController(vc, animated: true)
+        self.dismiss(animated: true)
+    }
 }
 extension liststud: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {

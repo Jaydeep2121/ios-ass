@@ -78,7 +78,9 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "image1.jpg")!)
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: view.width, height: view.height))
+        imageViewBackground.image = UIImage(named: "img1.jpg")
+        view.addSubview(imageViewBackground)
         view.addSubview(titlelabel)
         view.addSubview(loginlabel)
         view.addSubview(forgetlabel)

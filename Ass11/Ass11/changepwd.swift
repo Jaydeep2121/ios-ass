@@ -9,6 +9,8 @@
 import UIKit
 
 class changepwd: UIViewController {
+    var Student:stud?
+    let temp = SqliteHandler.shared
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -66,6 +68,9 @@ class changepwd: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: view.width, height: view.height))
+        imageViewBackground.image = UIImage(named: "img1.jpg")
+        view.addSubview(imageViewBackground)
         view.addSubview(titlelabel)
         view.addSubview(loginlabel)
         view.addSubview(usertext)
@@ -76,19 +81,30 @@ class changepwd: UIViewController {
         var alert = UIAlertController()
         if usertext.text == passtext.text && usertext.text != "" && passtext.text != "" {
             print("hi change passwd")
-            
-//            if let myid = UserDefaults.standard.string(forKey: "usrid"){
-//                print(myid)
-//            }
-//            if let pass = UserDefaults.standard.string(forKey: "pwd"){
-//                print(pass)
-//            }
+            let passd = usertext.text!
+                if let myid = UserDefaults.standard.string(forKey: "usrid"){
+                let updstd = stud(spid: Int(myid)!, name: "", email: "", gen: "", pass: passd, cour: "")
+                Changepwd(Student:updstd)
+            }
         }else{
             alert = UIAlertController(title: "Not Same", message: "Password and confirm Password is not same", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             usertext.text = ""
             passtext.text = ""
+        }
+    }
+    private func Changepwd(Student:stud) {
+        SqliteHandler.shared.updatepwd(e: Student) { (success) in
+            if success {
+                let alert = UIAlertController(title: "Success", message: "Password Changed!", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                self.usertext.text = ""
+                self.passtext.text = ""
+            } else {
+                print("Update failed, recevied mesage at VC")
+            }
         }
     }
     override func viewDidLayoutSubviews() {
