@@ -65,7 +65,7 @@ class ViewStudentNotice: UIViewController {
         
         let cors=UserDefaults.standard.string(forKey: "cod")
         notes = SqliteHandler.shared.fetchdata_notice(e:cors!)
-        var alert = UIAlertController()
+        var alert = UIAlertController()		
         if notes.isEmpty{
             alert = UIAlertController(title: "No Notice", message: "No Further Notice", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))

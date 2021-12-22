@@ -31,14 +31,15 @@ class SqliteHandler {
         }
     }
     private func createtable(){
-//        CREATE TABLE IF NOT EXISTS student(
-//            spid INTEGER PRIMARY KEY,
-//            name TEXT,
-//            email TEXT,
-//            gender TEXT,
-//            password TEXT,
-//            course TEXT);
         let createTableString = """
+           CREATE TABLE IF NOT EXISTS student(
+                spid INTEGER PRIMARY KEY,
+                name TEXT,
+                email TEXT,
+                gender TEXT,
+                password TEXT,
+                course TEXT);
+
            CREATE TABLE IF NOT EXISTS noticeb(
                 title TEXT,
                 data TEXT,
