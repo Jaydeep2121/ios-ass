@@ -23,6 +23,7 @@
 		0BAEA60D27685EFF0074B1D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BAEA60B27685EFF0074B1D9 /* Main.storyboard */; };
 		0BAEA60F27685F000074B1D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BAEA60E27685F000074B1D9 /* Assets.xcassets */; };
 		0BAEA61227685F000074B1D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BAEA61027685F000074B1D9 /* LaunchScreen.storyboard */; };
+		0BCE21182772D7D800BA70A4 /* ViewStudentNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCE21172772D7D800BA70A4 /* ViewStudentNotice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		0BAEA60E27685F000074B1D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BAEA61127685F000074B1D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BAEA61327685F000074B1D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BCE21172772D7D800BA70A4 /* ViewStudentNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStudentNotice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				0B78616F27703917007F9814 /* changepwd.swift */,
 				0B78617127703B94007F9814 /* StudentVC.swift */,
 				0B78617327703F3A007F9814 /* ViewStudentData.swift */,
+				0BCE21172772D7D800BA70A4 /* ViewStudentNotice.swift */,
 			);
 			path = Ass11;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				0B78617427703F3A007F9814 /* ViewStudentData.swift in Sources */,
 				0B3C391D276A0BDC0020A4AD /* stud.swift in Sources */,
 				0B2FC13927689E9A002FCDDA /* Regpage.swift in Sources */,
+				0BCE21182772D7D800BA70A4 /* ViewStudentNotice.swift in Sources */,
 				0B78617027703917007F9814 /* changepwd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

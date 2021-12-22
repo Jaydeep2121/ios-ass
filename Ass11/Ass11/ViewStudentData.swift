@@ -111,7 +111,8 @@ class ViewStudentData: UIViewController {
         view.addSubview(mysegment1)
         view.addSubview(chagebtn)
         
-        notes = SqliteHandler.shared.fetchdata(id: 20211) {_ in}
+        let myid=UserDefaults.standard.integer(forKey: "usrid")
+        notes = SqliteHandler.shared.fetchdata(id: myid) {_ in}
             spidtextfield.isEnabled = false
             nametextfield.isEnabled = false
             emailtextfield.isEnabled = false

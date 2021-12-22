@@ -286,6 +286,26 @@ class SqliteHandler {
         sqlite3_finalize(fetchst)
         return emp
     }
+    func fetchdata_notice(e:notice , completion: @escaping ((Bool) -> Void)) -> [notice] {
+        let fetchstr = "SELECT * FROM noticeb WHERE course=?;"
+        var emp = [notice]()
+        var fetchst:OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, fetchstr, -1, &fetchst, nil) == SQLITE_OK {
+            sqlite3_bind_text(fetchst, 1, (e.course as NSString).utf8String, -1, nil)
+            while sqlite3_step(fetchst) == SQLITE_ROW {
+                let title =  String(cString: sqlite3_column_text(fetchst, 0))
+                let data = String(cString: sqlite3_column_text(fetchst, 1))
+                let dates = String(cString: sqlite3_column_text(fetchst, 2))
+                let cour = String(cString: sqlite3_column_text(fetchst,3))
+                emp.append(notice(title: title, data: data, pdate: dates, course: cour))
+                print(title,data,dates,cour)
+            }
+        } else {
+            print("fetch statement could not be prepared")
+        }
+        sqlite3_finalize(fetchst)
+        return emp
+    }
     func fetch() -> [stud] {
         let fetchstr = "SELECT * FROM student;"
         var emp = [stud]()

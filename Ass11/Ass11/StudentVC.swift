@@ -59,7 +59,8 @@ extension StudentVC{
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func viewnotice(){
-        print("hello view notice")
+        let vc = ViewStudentNotice()
+        navigationController?.pushViewController(vc, animated: true)
     }
     @objc func logoutclick(){
        UserDefaults.standard.set(nil, forKey:"usrid")
