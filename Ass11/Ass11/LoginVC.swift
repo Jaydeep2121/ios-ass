@@ -104,6 +104,7 @@ class LoginVC: UIViewController {
         }else{
             if Int(usertext.text!) == notes[0].spid &&  passtext.text == notes[0].pass{
                 UserDefaults.standard.setValue(notes[0].spid, forKey:"usrid")
+                UserDefaults.standard.setValue(notes[0].cour, forKey:"cod")
                 let vc = StudentVC()
                 navigationController?.pushViewController(vc, animated: true)
                 self.dismiss(animated: true)

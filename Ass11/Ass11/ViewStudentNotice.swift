@@ -63,21 +63,26 @@ class ViewStudentNotice: UIViewController {
         view.addSubview(Datepicker)
         view.addSubview(mysegment1)
         
-        SqliteHandler.shared.fetchdata_notice(e:S1!) {_ in}
-        
-        /*
-        titletextfield.text = notes[0].title
-        desctextfield.text = notes[0].data
-        if notes[0].course == "Bcom"{
-            mysegment1.selectedSegmentIndex = 0
-        }else if notes[0].course == "BBA"{
-            mysegment1.selectedSegmentIndex = 1
-        }else if notes[0].course == "BCA"{
-            mysegment1.selectedSegmentIndex = 2
-        }else if notes[0].course == "ALL"{
-            mysegment1.selectedSegmentIndex = 3
+        let cors=UserDefaults.standard.string(forKey: "cod")
+        notes = SqliteHandler.shared.fetchdata_notice(e:cors!)
+        var alert = UIAlertController()
+        if notes.isEmpty{
+            alert = UIAlertController(title: "No Notice", message: "No Further Notice", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            titletextfield.text = notes[0].title
+            desctextfield.text = notes[0].data
+            if notes[0].course == "Bcom"{
+                mysegment1.selectedSegmentIndex = 0
+            }else if notes[0].course == "BBA"{
+                mysegment1.selectedSegmentIndex = 1
+            }else if notes[0].course == "BCA"{
+                mysegment1.selectedSegmentIndex = 2
+            }else if notes[0].course == "ALL"{
+                mysegment1.selectedSegmentIndex = 3
+            }
         }
-         */
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
