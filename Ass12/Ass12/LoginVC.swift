@@ -101,7 +101,7 @@ class LoginVC: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }else{
-            if Int(usertext.text!) == notes[0].spid &&  passtext.text == notes[0].password{
+            if ((Int(usertext.text!) == Int(notes[0].spid)) &&  (passtext.text == notes[0].password)){
                 UserDefaults.standard.setValue(notes[0].spid, forKey:"usrid")
                 UserDefaults.standard.setValue(notes[0].course, forKey:"cod")
                 let vc = StudentVC()
