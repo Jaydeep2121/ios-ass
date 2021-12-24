@@ -49,7 +49,23 @@ class coredatahandler {
         stud.course=cors
         save()
     }
+    func updatenotice(noti:Noticeb,title:String,data:String,pdate:String,course:String){
+        noti.title = title
+        noti.data = data
+        noti.pdate = pdate
+        noti.course = course
+        save()
+    }
+    func changepassword(stud: Student,password : String){
+        stud.password = password
+        save()
+    }
     func delete(emp:Student,completion: @escaping() -> Void ){
+        manageOnjectContext!.delete(emp)
+        save()
+        completion()
+    }
+    func deletenotice(emp:Noticeb,completion: @escaping() -> Void ){
         manageOnjectContext!.delete(emp)
         save()
         completion()
@@ -62,6 +78,40 @@ class coredatahandler {
         }catch{
             print(error)
             return [Student]()
+        }
+    }
+    func fetchnotice() -> [Noticeb]{
+        let FetchRequest:NSFetchRequest<Noticeb> = Noticeb.fetchRequest()
+        do{
+            let stdArray = try manageOnjectContext?.fetch(FetchRequest)
+            return stdArray!
+        }catch{
+            print(error)
+            return [Noticeb]()
+        }
+    }
+    func fetchdataid(id:Int) -> [Student]{
+        let FetchRequest:NSFetchRequest<Student> = Student.fetchRequest()
+        let obj = NSPredicate(format: "spid contains \(id)")
+        FetchRequest.predicate = obj
+        do{
+            let stdArray = try manageOnjectContext?.fetch(FetchRequest)
+            return stdArray!
+        }catch{
+            print(error)
+            return [Student]()
+        }
+    }
+    func fetchnoticeid(cors:String) -> [Noticeb]{        
+        let FetchRequest:NSFetchRequest<Noticeb> = Noticeb.fetchRequest()
+        let obj = NSPredicate(format: "course contains %@",cors)
+        FetchRequest.predicate = obj
+        do{
+            let stdArray = try manageOnjectContext?.fetch(FetchRequest)
+            return stdArray!
+        }catch{
+            print(error)
+            return [Noticeb]()
         }
     }
 }

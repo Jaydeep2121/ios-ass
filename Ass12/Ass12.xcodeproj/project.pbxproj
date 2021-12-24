@@ -20,6 +20,10 @@
 		0B8D96F127759036004F1369 /* liststud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96F027759036004F1369 /* liststud.swift */; };
 		0B8D96F32775A4FF004F1369 /* listnotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96F22775A4FF004F1369 /* listnotice.swift */; };
 		0B8D96F52775A5D5004F1369 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96F42775A5D5004F1369 /* NoticeVC.swift */; };
+		0B8D96F72775C4CC004F1369 /* changepwd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96F62775C4CC004F1369 /* changepwd.swift */; };
+		0B8D96FB2775C6E8004F1369 /* StudentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96FA2775C6E8004F1369 /* StudentVC.swift */; };
+		0B8D96FD2775C809004F1369 /* ViewStudentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96FC2775C809004F1369 /* ViewStudentData.swift */; };
+		0B8D96FF2775C825004F1369 /* ViewStudentNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D96FE2775C825004F1369 /* ViewStudentNotice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		0B8D96F027759036004F1369 /* liststud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = liststud.swift; sourceTree = "<group>"; };
 		0B8D96F22775A4FF004F1369 /* listnotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listnotice.swift; sourceTree = "<group>"; };
 		0B8D96F42775A5D5004F1369 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
+		0B8D96F62775C4CC004F1369 /* changepwd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changepwd.swift; sourceTree = "<group>"; };
+		0B8D96FA2775C6E8004F1369 /* StudentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentVC.swift; sourceTree = "<group>"; };
+		0B8D96FC2775C809004F1369 /* ViewStudentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStudentData.swift; sourceTree = "<group>"; };
+		0B8D96FE2775C825004F1369 /* ViewStudentNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStudentNotice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +62,8 @@
 		0B2EEFE42773432500B74EC3 = {
 			isa = PBXGroup;
 			children = (
-				0B2EF007277343FC00B74EC3 /* Admin */,
-				0B2EF005277343DE00B74EC3 /* Student */,
+				0B2EF007277343FC00B74EC3 /* Student */,
+				0B2EF005277343DE00B74EC3 /* Admin */,
 				0B2EEFEF2773432500B74EC3 /* Ass12 */,
 				0B2EEFEE2773432500B74EC3 /* Products */,
 			);
@@ -82,11 +90,12 @@
 				0B2EEFF72773432500B74EC3 /* Ass12.xcdatamodeld */,
 				0B2EF00C277346ED00B74EC3 /* extension.swift */,
 				0B8D96EE277589C2004F1369 /* coredatahandler.swift */,
+				0B8D96F62775C4CC004F1369 /* changepwd.swift */,
 			);
 			path = Ass12;
 			sourceTree = "<group>";
 		};
-		0B2EF005277343DE00B74EC3 /* Student */ = {
+		0B2EF005277343DE00B74EC3 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
 				0B8D96EC2775865A004F1369 /* Regpage.swift */,
@@ -94,14 +103,17 @@
 				0B8D96F22775A4FF004F1369 /* listnotice.swift */,
 				0B8D96F42775A5D5004F1369 /* NoticeVC.swift */,
 			);
-			path = Student;
+			path = Admin;
 			sourceTree = "<group>";
 		};
-		0B2EF007277343FC00B74EC3 /* Admin */ = {
+		0B2EF007277343FC00B74EC3 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				0B8D96FA2775C6E8004F1369 /* StudentVC.swift */,
+				0B8D96FC2775C809004F1369 /* ViewStudentData.swift */,
+				0B8D96FE2775C825004F1369 /* ViewStudentNotice.swift */,
 			);
-			path = Admin;
+			path = Student;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,14 +189,18 @@
 			files = (
 				0B8D96F52775A5D5004F1369 /* NoticeVC.swift in Sources */,
 				0B8D96EF277589C2004F1369 /* coredatahandler.swift in Sources */,
+				0B8D96FB2775C6E8004F1369 /* StudentVC.swift in Sources */,
 				0B2EEFF32773432500B74EC3 /* ViewController.swift in Sources */,
 				0B8D96ED2775865A004F1369 /* Regpage.swift in Sources */,
 				0B2EEFF12773432500B74EC3 /* AppDelegate.swift in Sources */,
 				0B8D96F32775A4FF004F1369 /* listnotice.swift in Sources */,
 				0B2EF00B2773468100B74EC3 /* LoginVC.swift in Sources */,
 				0B8D96F127759036004F1369 /* liststud.swift in Sources */,
+				0B8D96FD2775C809004F1369 /* ViewStudentData.swift in Sources */,
 				0B2EF00D277346ED00B74EC3 /* extension.swift in Sources */,
 				0B2EEFF92773432500B74EC3 /* Ass12.xcdatamodeld in Sources */,
+				0B8D96FF2775C825004F1369 /* ViewStudentNotice.swift in Sources */,
+				0B8D96F72775C4CC004F1369 /* changepwd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

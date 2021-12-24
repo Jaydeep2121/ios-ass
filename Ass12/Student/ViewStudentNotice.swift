@@ -8,19 +8,20 @@
 
 import UIKit
 
-class NoticeVC: UIViewController {
-    var S1:Noticeb?
+class ViewStudentNotice: UIViewController {
+//    var S1:notice?
+//    let temp = SqliteHandler.shared
+    private var notes = [Noticeb]()
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Add Notice"
+        label.text = "My NoticeBoard"
         label.font = UIFont.italicSystemFont(ofSize: 30)
         label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
         return label
     }()
     private let titletextfield:UITextField = {
         let textfield = UITextField()
-        textfield.placeholder = "Enter Title"
         textfield.layer.borderWidth = 1
         let img = UIImageView(frame: CGRect(x: 20, y: 50, width: 40, height: 20))
         img.contentMode = .scaleAspectFit
@@ -50,15 +51,6 @@ class NoticeVC: UIViewController {
         sg.insertSegment(withTitle: "All", at: 3, animated: true)
         return sg
     }()
-    private let savebutton:UIButton = {
-        let button = UIButton()
-        button.setTitle("Publish", for: .normal)
-        button.addTarget(self, action: #selector(savenotice), for: .touchUpInside)
-        button.tintColor = .white
-        button.backgroundColor = .green
-        button.layer.cornerRadius = 6
-        return button
-    }()
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -70,17 +62,24 @@ class NoticeVC: UIViewController {
         view.addSubview(desctextfield)
         view.addSubview(Datepicker)
         view.addSubview(mysegment1)
-        view.addSubview(savebutton)
-        if let n = S1{
-            titletextfield.text = n.title
-            desctextfield.text = n.data
-            if n.course == "Bcom"{
+
+       let cors=UserDefaults.standard.string(forKey: "cod")
+        notes = coredatahandler.shared.fetchnoticeid(cors:cors!)
+        var alert = UIAlertController()
+        if notes.isEmpty{
+            alert = UIAlertController(title: "No Notice", message: "No Further Notice", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            titletextfield.text = notes[0].title
+            desctextfield.text = notes[0].data
+            if notes[0].course == "Bcom"{
                 mysegment1.selectedSegmentIndex = 0
-            }else if n.course == "BBA"{
+            }else if notes[0].course == "BBA"{
                 mysegment1.selectedSegmentIndex = 1
-            }else if n.course == "BCA"{
+            }else if notes[0].course == "BCA"{
                 mysegment1.selectedSegmentIndex = 2
-            }else if n.course == "ALL"{
+            }else if notes[0].course == "ALL"{
                 mysegment1.selectedSegmentIndex = 3
             }
         }
@@ -92,32 +91,6 @@ class NoticeVC: UIViewController {
         desctextfield.frame = CGRect(x: 30, y: titletextfield.bottom + 20, width: view.width-60, height: 100)
         Datepicker.frame = CGRect(x: 30, y: desctextfield.bottom + 20, width: view.width-60, height: 70)
         mysegment1.frame = CGRect(x: 30, y: Datepicker.bottom+40, width: view.width-60, height: 30)
-        savebutton.frame = CGRect(x: 30, y: mysegment1.bottom+20, width: view.width-60, height: 40)
     }
 }
-extension NoticeVC{
-    @objc private func savenotice(){
-        let title = titletextfield.text!
-        let descr = desctextfield.text!
-        let cal = Calendar.current
-        let components = cal.dateComponents([.day,.month,.year], from: Datepicker.date)
-        let cour = mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)!
-        let don = "\(components.day!)-\(components.month!)-\(components.year!)"
-        
-//        if let stud = s {
-//            coredatahandler.shared.updatenotice(stud: stud, sid: Int(id)!, name: name, email: email, gen: segm, pass: pass, cors: cour)
-//            print("data updated")
-//            self.resetfields()
-//        }else{
-            coredatahandler.shared.insertnotice(title: title, data: descr, pdate: don, course: cour)
-            print("data insetred")
-            self.resetfields()
-        //}
-    }
-    private func resetfields()
-    {
-        titletextfield.text=""
-        desctextfield.text=""
-        mysegment1.selectedSegmentIndex = UISegmentedControl.noSegment
-    }
-}
+

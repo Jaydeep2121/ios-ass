@@ -146,8 +146,7 @@ class Regpage: UIViewController {
 }
 extension Regpage{
     @objc private func savenote(){
-//        let id = spidtextfield.text!
-        let id = "20212"
+        var id = spidtextfield.text!
         let name = nametextfield.text!
         let email = emailtextfield.text!
         let segm = mysegment.titleForSegment(at: mysegment.selectedSegmentIndex)!
@@ -155,6 +154,7 @@ extension Regpage{
         let cour = mysegment1.titleForSegment(at: mysegment1.selectedSegmentIndex)!
         
         if let stud = s {
+            id = "20212"
             coredatahandler.shared.update(stud: stud, sid: Int(id)!, name: name, email: email, gen: segm, pass: pass, cors: cour)
             print("data updated")
             self.resetfields()

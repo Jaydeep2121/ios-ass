@@ -8,10 +8,8 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
-    let uname = "Admin"
-    let upass = "admin123"
-    private let notes = [Student]()
+class changepwd: UIViewController {
+    var std : [Student]?
     private let titlelabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -23,35 +21,12 @@ class LoginVC: UIViewController {
     private let loginlabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Login"
+        label.text = "Change Password"
         label.font = UIFont.italicSystemFont(ofSize: 25)
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
         return label
     }()
-    private let forgetlabel:UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "Forgot Password?"
-        label.font = UIFont.italicSystemFont(ofSize: 10)
-        label.font = UIFont(name: "HelveticaNeue", size: 10)
-        return label
-    }()
     private let usertext:UITextField = {
-        let textfield = UITextField()
-        textfield.textColor = .black
-        textfield.placeholder = "Username"
-        textfield.textAlignment = .center
-        textfield.layer.cornerRadius = 15.0
-        textfield.backgroundColor = .white
-        textfield.layer.borderWidth = 0
-        textfield.layer.shadowColor = UIColor.black.cgColor
-        textfield.layer.shadowOffset = CGSize(width: 3, height: 3)
-        textfield.layer.shadowOpacity = 0.7
-        textfield.layer.shadowRadius = 4.0
-        textfield.font = UIFont.init(name: "Montserrt.bold.rawValue", size: 18.0)
-        return textfield
-    }()
-    private let passtext:UITextField = {
         let textfield = UITextField()
         textfield.textColor = .black
         textfield.placeholder = "Password"
@@ -66,10 +41,25 @@ class LoginVC: UIViewController {
         textfield.font = UIFont.init(name: "Montserrt.bold.rawValue", size: 18.0)
         return textfield
     }()
+    private let passtext:UITextField = {
+        let textfield = UITextField()
+        textfield.textColor = .black
+        textfield.placeholder = "Confirm Password"
+        textfield.textAlignment = .center
+        textfield.layer.cornerRadius = 15.0
+        textfield.backgroundColor = .white
+        textfield.layer.borderWidth = 0
+        textfield.layer.shadowColor = UIColor.black.cgColor
+        textfield.layer.shadowOffset = CGSize(width: 3, height: 3)
+        textfield.layer.shadowOpacity = 0.7
+        textfield.layer.shadowRadius = 4.0
+        textfield.font = UIFont.init(name: "Montserrt.bold.rawValue", size: 18.0)
+        return textfield
+    }()
     private let loginbutton:UIButton = {
         let button = UIButton()
-        button.setTitle("Login", for: .normal)
-        button.addTarget(self, action: #selector(loginClickbtn), for: .touchUpInside)
+        button.setTitle("Change", for: .normal)
+        button.addTarget(self, action: #selector(ChangeClickbtn), for: .touchUpInside)
         button.tintColor = .white
         button.backgroundColor = .red
         return button
@@ -82,42 +72,41 @@ class LoginVC: UIViewController {
         view.addSubview(imageViewBackground)
         view.addSubview(titlelabel)
         view.addSubview(loginlabel)
-        view.addSubview(forgetlabel)
         view.addSubview(usertext)
         view.addSubview(passtext)
         view.addSubview(loginbutton)
     }
-    @objc func loginClickbtn(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let myid = UserDefaults.standard.string(forKey: "usrid"){
+            std = coredatahandler.shared.fetchdataid(id: Int(myid)!)
+        }
+    }
+    @objc func ChangeClickbtn(){
         var alert = UIAlertController()
-        let sid = Int(usertext.text!) ?? 0
-        let notes = coredatahandler.shared.fetchdataid(id: sid)
-        if notes.isEmpty{
-            if usertext.text == uname && passtext.text == upass {
-                let sc = liststud()
-                navigationController?.pushViewController(sc, animated: true)
+        if usertext.text == passtext.text && usertext.text != "" && passtext.text != "" {
+            let passd = usertext.text!
+            if let s = std {
+                coredatahandler.shared.changepassword(stud: s[0], password: passd)
+                print("pass chanhge")
             }else{
-                alert = UIAlertController(title: "Failed to LoggedIn", message: "Incorrect Username OR Password", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                print("not")
             }
         }else{
-            if Int(usertext.text!) == notes[0].spid &&  passtext.text == notes[0].password{
-                UserDefaults.standard.setValue(notes[0].spid, forKey:"usrid")
-                UserDefaults.standard.setValue(notes[0].course, forKey:"cod")
-                let vc = StudentVC()
-                navigationController?.pushViewController(vc, animated: true)
-                self.dismiss(animated: true)
-            }
+            alert = UIAlertController(title: "Not Same", message: "Password and confirm Password is not same", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            usertext.text = ""
+            passtext.text = ""
         }
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         titlelabel.frame = CGRect(x: 5, y: 200, width: view.width-150, height: 50)
-        loginlabel.frame = CGRect(x: 5, y: 230, width: view.width-245, height: 50)
+        loginlabel.frame = CGRect(x: 5, y: 230, width: view.width-100, height: 50)
         usertext.frame = CGRect(x: 37, y: loginlabel.frame.origin.y+90, width: view.width-100, height: 50)
         passtext.frame = CGRect(x: 37, y: usertext.frame.origin.y+70, width: view.width-100, height: 50)
         loginbutton.frame = CGRect(x: 37, y: passtext.frame.origin.y+70, width: view.width-100, height: 50)
-        forgetlabel.frame = CGRect(x: 40, y: loginbutton.frame.origin.y+50, width: view.width-100, height: 30)
     }
 }
 

@@ -90,13 +90,14 @@ class liststud: UIViewController {
     }
 }
 extension liststud: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let emp = notes[indexPath.row]
-        cell.textLabel?.text = "\(emp.name!) \t | \t \(emp.email!) \t | \t \(emp.gender!)  \t | \t \(emp.course!)"
+        cell.textLabel?.text = "\(emp.spid) \t | \t \(emp.password!) \t | \t \(emp.gender!)  \t | \t \(emp.course!)"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
