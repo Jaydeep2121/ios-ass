@@ -43,7 +43,49 @@ class Condition:Decodable
     var icon = ""
     var code:Int
 }
-
+/*
+ {
+ "coord":
+        {
+            "lon":-0.1257,
+            "lat":51.5085
+ },
+ "weather":[
+            {"id":804,
+            "main":"Clouds",
+            "description":"overcast clouds","icon":"04n"
+            }
+ ],
+ "base":"stations",
+ "main":{
+    "temp":280.89,
+ "feels_like":280.18,
+ "temp_min":279.64,
+ "temp_max":282.18,
+ "pressure":1005,
+ "humidity":92
+ },
+ "visibility":10000,
+ "wind":{
+"speed":1.54,
+ "deg":180
+ },
+ "clouds":{
+"all":100
+ },
+ "dt":1640751042,
+ "sys":{
+ "type":2,
+ "id":2019646,
+ "country":"GB",
+ "sunrise":1640765172,
+ "sunset":1640793521
+ },
+ "timezone":0,
+ "id":2643743,
+ "name":"London",
+ "cod":200}
+ */
 /*{
  "location": {
  "name": "Surat",
