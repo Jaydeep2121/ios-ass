@@ -8,19 +8,13 @@ class WeatherVC: UIViewController {
     private let mylabel:UILabel = {
         let label = UILabel()
         label.text = "Enter CityName"
-        label.textColor = .white
+        label.textColor = .blue
         label.font = UIFont.boldSystemFont(ofSize:  20)
         
         return label
     }()
     private let Searchbar =  UISearchBar()
     
-    private let view1:UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 20
-        view.layer.opacity = 0.6
-        return view
-    }()
     private let view2:UIView = {
         let view = UIView()
         view.layer.cornerRadius = 20
@@ -49,34 +43,10 @@ class WeatherVC: UIViewController {
         view.layer.opacity = 0.8
         return view
     }()
-    private let location:UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize:  20)
-        
-        return label
-    }()
-    private let timezone:UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize:  20)
-        
-        return label
-    }()
-    private let timezone_id:UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize:  20)
-        
-        return label
-    }()
     private let wind:UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .white
+        label.textColor = .blue
         label.font = UIFont.boldSystemFont(ofSize:  25)
         label.textAlignment = .center
         return label
@@ -100,7 +70,7 @@ class WeatherVC: UIViewController {
     private let temp:UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .white
+        label.textColor = .blue
         label.font = UIFont.boldSystemFont(ofSize:  25)
         label.textAlignment = .left
         return label
@@ -124,7 +94,7 @@ class WeatherVC: UIViewController {
     private let pre:UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .white
+        label.textColor = .blue
         label.font = UIFont.boldSystemFont(ofSize:  25)
         label.textAlignment = .left
         return label
@@ -148,7 +118,7 @@ class WeatherVC: UIViewController {
     private let hum:UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .white
+        label.textColor = .blue
         label.font = UIFont.boldSystemFont(ofSize:  25)
         label.textAlignment = .left
         return label
@@ -166,17 +136,12 @@ class WeatherVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
         view.addSubview(mylabel)
         view.addSubview(Searchbar)
         Searchbar.layer.cornerRadius = 20
         Searchbar.delegate = self
-        
-        view.addSubview(view1)
-        view1.backgroundColor = .blue
-        view.addSubview(location)
-        view.addSubview(timezone)
-        view.addSubview(timezone_id)
+    
         view.addSubview(view2)
         view.addSubview(wind)
         view.addSubview(wind_mph)
@@ -192,7 +157,6 @@ class WeatherVC: UIViewController {
         view.addSubview(view5)
         view.addSubview(hum)
         view.addSubview(hum_pre)
-        view1.isHidden = true
         view2.isHidden = true
         view3.isHidden = true
         view4.isHidden = true
@@ -205,15 +169,11 @@ class WeatherVC: UIViewController {
         
         mylabel.frame = CGRect(x:  40, y: 30, width: 200, height: 30)
         Searchbar.frame = CGRect(x: 20 , y: mylabel.bottom + 10 , width: view.width - 40 , height: 40)
-        view1.frame = CGRect(x: 20, y: Searchbar.bottom + 30, width: view.width - 40, height: 100)
-        location.frame = CGRect(x: view1.left + 20, y: view1.top + 20, width:  130, height: 30)
-        timezone.frame = CGRect(x: location.right + 10, y: view1.top + 20, width: 180, height: 30)
-        timezone_id.frame = CGRect(x: view1.left + 20 , y: location.bottom + 10, width: 180, height: 30)
-        view2.frame = CGRect(x: 20, y: view1.bottom + 20, width: 150, height: 150)
+        view2.frame = CGRect(x: 20, y: 120, width: 150, height: 150)
         wind.frame = CGRect(x: view2.left, y: view2.top + 20, width:  view2.right - 20, height: 25)
         wind_mph.frame = CGRect(x: view2.left + 20, y: wind.bottom + 10, width:  view2.right - 20, height: 20)
         wind_kmh.frame = CGRect(x: view2.left + 20, y: wind_mph.bottom + 10, width:  view2.right - 20, height: 20)
-        view3.frame = CGRect(x: view2.right + 30, y: view1.bottom + 20, width: 150, height: 150)
+        view3.frame = CGRect(x: view2.right + 30, y: 120, width: 150, height: 150)
         temp.frame = CGRect(x: view3.left, y: view3.top + 20, width:  view3.right, height: 25)
         temp_c.frame = CGRect(x: view3.left + 20, y: temp.bottom + 10, width:  view3.right - 20, height: 20)
         temp_f.frame = CGRect(x: view3.left + 20, y: temp_c.bottom + 10, width:  view3.right - 20, height: 20)
@@ -229,10 +189,6 @@ class WeatherVC: UIViewController {
     func show(name:String){
         WeatherArray = APIHandler.shared.search_weather(with: name)
         for  i in WeatherArray {
-            location.text = "\(i.location.name),\(i.location.country) "
-            timezone.text = "\(i.location.localtime)"
-            timezone_id.text  = "\(i.location.tz_id)"
-            
             wind.text = "Wind"
             wind_mph.text = "\(i.current.wind_mph) Mp/h"
             wind_kmh.text = "\(i.current.wind_kph) Km/h"
@@ -254,7 +210,6 @@ class WeatherVC: UIViewController {
 extension WeatherVC :UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
-        view1.isHidden = false
         view2.isHidden = false
         view3.isHidden = false
         view4.isHidden = false
